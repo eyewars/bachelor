@@ -46,8 +46,7 @@ public class playerMovement : MonoBehaviour{
     void Update(){
 		// +0.2f er for å ha litt å gå på (tror vi lol), hvis noe fucker seg senere kanskje den burde endres litt på!!
 		grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-		Debug.Log(readyToJump);
-        myInput();
+		myInput();
 		speedControl();
 
 		if (grounded){
