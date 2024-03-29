@@ -6,7 +6,8 @@ using UnityEngine.Rendering;
 
 public class playerMovement : MonoBehaviour{
     [Header("Movement")]
-    public float moveSpeed;
+    private float moveSpeed;
+    public float baseMoveSpeed;
 
 	public float groundDrag;
 
@@ -14,6 +15,8 @@ public class playerMovement : MonoBehaviour{
 	public float jumpCooldown;
 	public float airMultiplier;
 	bool readyToJump;
+
+	public Transform cameraPos; 
 
 	[Header("Keybinds")]
 	public KeyCode jumpKey = KeyCode.Space;
@@ -36,6 +39,7 @@ public class playerMovement : MonoBehaviour{
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        resetSpeed();
 		resetJump();
     }
 
@@ -44,6 +48,16 @@ public class playerMovement : MonoBehaviour{
     }
 
     void Update(){
+	    if (Input.GetKey(KeyCode.LeftShift)) {
+		    sprint();
+	    } else if (Input.GetKey(KeyCode.LeftControl)) {
+		    crouch();
+	    } else {
+		    resetSpeed();
+	    }
+	    
+	    
+	    
 		// +0.2f er for å ha litt å gå på (tror vi lol), hvis noe fucker seg senere kanskje den burde endres litt på!!
 		grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 		myInput();
@@ -98,5 +112,23 @@ public class playerMovement : MonoBehaviour{
 
 	private void resetJump(){
 		readyToJump = true;
+	}
+
+	private void sprint() {
+		moveSpeed = baseMoveSpeed * 1.5f;
+	}
+
+	private void crouch() {
+		moveSpeed = baseMoveSpeed * 0.3f;
+
+		Vector3 tempPos = new Vector3(cameraPos.position.x, 0.2f, cameraPos.position.z);
+		cameraPos.position = tempPos;
+	}
+
+	private void resetSpeed() {
+		moveSpeed = baseMoveSpeed;
+		
+		Vector3 tempPos = new Vector3(cameraPos.position.x, 0.5f, cameraPos.position.z);
+		cameraPos.position = tempPos;
 	}
 }
