@@ -48,17 +48,7 @@ public class playerMovement : MonoBehaviour{
     }
 
     void Update(){
-	    if (Input.GetKey(KeyCode.LeftShift)) {
-		    sprint();
-	    } else if (Input.GetKey(KeyCode.LeftControl)) {
-		    crouch();
-	    } else {
-		    resetSpeed();
-	    }
-	    
-	    
-	    
-		// +0.2f er for å ha litt å gå på (tror vi lol), hvis noe fucker seg senere kanskje den burde endres litt på!!
+	    // +0.2f er for å ha litt å gå på (tror vi lol), hvis noe fucker seg senere kanskje den burde endres litt på!!
 		grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 		myInput();
 		speedControl();
@@ -74,10 +64,33 @@ public class playerMovement : MonoBehaviour{
     private void myInput(){
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+		
+        Debug.Log("Ready to jump: " + readyToJump);
+        Debug.Log("Grounded: " + grounded);
 
-		if (Input.GetKey(jumpKey) && readyToJump && grounded){
-			jump();
-		}
+        if (Input.GetKeyDown(KeyCode.LeftControl)) {
+	        Vector3 tempPos = new Vector3(cameraPos.position.x, cameraPos.position.y, cameraPos.position.z);
+	        tempPos.y -= 0.3f;
+	        cameraPos.position = tempPos;
+        }
+        
+        if (Input.GetKey(KeyCode.LeftShift)) {
+			sprint();
+		} else if (Input.GetKey(KeyCode.LeftControl)) {
+			crouch();
+		} 
+
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftControl)) {
+	        resetSpeed();
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftControl)) {
+	        resetCrouchCamera();
+        }
+        
+        if (Input.GetKey(jumpKey) && readyToJump && grounded){
+	        jump();
+        }
     }
 
     private void movePlayer(){
@@ -120,15 +133,15 @@ public class playerMovement : MonoBehaviour{
 
 	private void crouch() {
 		moveSpeed = baseMoveSpeed * 0.3f;
-
-		Vector3 tempPos = new Vector3(cameraPos.position.x, 0.2f, cameraPos.position.z);
-		cameraPos.position = tempPos;
 	}
 
 	private void resetSpeed() {
 		moveSpeed = baseMoveSpeed;
-		
-		Vector3 tempPos = new Vector3(cameraPos.position.x, 0.5f, cameraPos.position.z);
+	}
+
+	private void resetCrouchCamera() {
+		Vector3 tempPos = new Vector3(cameraPos.position.x, cameraPos.position.y, cameraPos.position.z);
+		tempPos.y += 0.3f;
 		cameraPos.position = tempPos;
 	}
 }
