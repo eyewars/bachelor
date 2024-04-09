@@ -64,10 +64,7 @@ public class playerMovement : MonoBehaviour{
     private void myInput(){
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-		
-        Debug.Log("Ready to jump: " + readyToJump);
-        Debug.Log("Grounded: " + grounded);
-
+        
         if (Input.GetKeyDown(KeyCode.LeftControl)) {
 	        Vector3 tempPos = new Vector3(cameraPos.position.x, cameraPos.position.y, cameraPos.position.z);
 	        tempPos.y -= 0.3f;

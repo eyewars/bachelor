@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class playerCam : MonoBehaviour{
-    public float sensX;
-    public float sensY;
+    public float cameraSensitivity;
+    public float cameraAcceleration;
 
     public Transform orientation;
    
@@ -18,15 +18,16 @@ public class playerCam : MonoBehaviour{
     }
 
     void Update(){
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
+        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * cameraSensitivity;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * cameraSensitivity;
 
         yRotation += mouseX;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f), cameraAcceleration * 0.003f);
+        
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
 
         
