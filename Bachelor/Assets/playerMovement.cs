@@ -26,7 +26,7 @@ public class playerMovement : MonoBehaviour{
 	public LayerMask whatIsGround;
 	bool grounded;
 
-   	public Transform orientation;
+   	public Transform camera;
 
    	float horizontalInput;
    	float verticalInput;
@@ -91,7 +91,7 @@ public class playerMovement : MonoBehaviour{
     }
 
     private void movePlayer(){
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDirection = camera.forward * verticalInput + camera.right * horizontalInput;
 
 		if (grounded){
 			rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);

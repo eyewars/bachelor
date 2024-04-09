@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class moveCamera : MonoBehaviour{
-    public Transform cameraPosition;
+    public Transform camera;
 
     void Update(){
-        transform.position = cameraPosition.position;
+        camera.position = transform.position;
     }
 }

@@ -6,11 +6,12 @@ public class playerCam : MonoBehaviour{
     public float cameraSensitivity;
     public float cameraAcceleration;
 
-    public Transform orientation;
-   
+    public Transform camera;
 
-    float xRotation;
-    float yRotation;
+    public Transform hand;
+
+    private float xPos;
+    private float yPos;
 
     void Start(){
         Cursor.lockState = CursorLockMode.Locked;
@@ -18,18 +19,15 @@ public class playerCam : MonoBehaviour{
     }
 
     void Update(){
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * cameraSensitivity;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * cameraSensitivity;
-
-        yRotation += mouseX;
-
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f), cameraAcceleration * 0.003f);
+        xPos += Input.GetAxis("Mouse Y") * Time.deltaTime * cameraSensitivity;
+        yPos += Input.GetAxis("Mouse X") * Time.deltaTime * cameraSensitivity;
         
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
-
+        xPos = Mathf.Clamp(xPos, -90f, 90f);
         
+        hand.localRotation = Quaternion.Euler(-xPos, yPos, 0);
+
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, yPos, 0), cameraAcceleration * Time.deltaTime);
+        camera.localRotation = Quaternion.Lerp(camera.localRotation, Quaternion.Euler(-xPos, 0, 0), cameraAcceleration * Time.deltaTime);
+
     }
 }

@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class flashlight : MonoBehaviour{
-    public Transform placement;
-
     private Light myLight;
     
     void Start() {
         myLight = GetComponent<Light>();
     }
     void Update() {
-        transform.rotation = placement.rotation;
-        //transform.position = placement.position;
-
         if (Input.GetKeyDown(KeyCode.E) && playerManager.instance.hasFlashlight && (playerManager.instance.battery > 0)) {
             if (myLight.enabled) {
                 myLight.enabled = false;
