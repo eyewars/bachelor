@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 public class playerMovement : MonoBehaviour{
+	private Vector3 startPos;
+	
     [Header("Movement")]
     private float moveSpeed;
     public float baseMoveSpeed;
@@ -16,7 +18,8 @@ public class playerMovement : MonoBehaviour{
 	public float airMultiplier;
 	bool readyToJump;
 
-	public Transform cameraPos; 
+	[Range(0, 0.1f)] public float amp;
+	[Range(0, 30)] public float freq;
 
 	[Header("Keybinds")]
 	public KeyCode jumpKey = KeyCode.Space;
@@ -25,8 +28,10 @@ public class playerMovement : MonoBehaviour{
 	public float playerHeight;
 	public LayerMask whatIsGround;
 	bool grounded;
-
-   	public Transform camera;
+	
+    public Transform head;
+    public Transform camera;
+    public Transform lookAtPoint;
 
    	float horizontalInput;
    	float verticalInput;
@@ -35,8 +40,10 @@ public class playerMovement : MonoBehaviour{
 
    	Rigidbody rb;
 
-    void Start(){
-        rb = GetComponent<Rigidbody>();
+    void Start() {
+	    startPos = Vector3.zero;
+	    
+	    rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
         resetSpeed();
@@ -64,11 +71,18 @@ public class playerMovement : MonoBehaviour{
     private void myInput(){
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        if ((horizontalInput != 0) || (verticalInput != 0)) {
+	        bobbing();
+        } else {
+	        resetCameraPos();
+        }
         
         if (Input.GetKeyDown(KeyCode.LeftControl)) {
-	        Vector3 tempPos = new Vector3(cameraPos.position.x, cameraPos.position.y, cameraPos.position.z);
+	        Vector3 tempPos = new Vector3(head.localPosition.x, head.localPosition.y, head.localPosition.z);
 	        tempPos.y -= 0.3f;
-	        cameraPos.position = tempPos;
+	        //head.localPosition = Vector3.Lerp(head.localPosition, tempPos, 5 * Time.deltaTime);
+	        head.localPosition = tempPos;
         }
         
         if (Input.GetKey(KeyCode.LeftShift)) {
@@ -82,7 +96,7 @@ public class playerMovement : MonoBehaviour{
         }
 
         if (Input.GetKeyUp(KeyCode.LeftControl)) {
-	        resetCrouchCamera();
+	        resetHeadPos();
         }
         
         if (Input.GetKey(jumpKey) && readyToJump && grounded){
@@ -93,9 +107,9 @@ public class playerMovement : MonoBehaviour{
     private void movePlayer(){
         moveDirection = camera.forward * verticalInput + camera.right * horizontalInput;
 
-		if (grounded){
+        if (grounded){
 			rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
-		}
+        }
 		else{
 			rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Force);
 		}
@@ -125,20 +139,35 @@ public class playerMovement : MonoBehaviour{
 	}
 
 	private void sprint() {
-		moveSpeed = baseMoveSpeed * 1.5f;
+		moveSpeed = baseMoveSpeed * 1.3f;
 	}
 
 	private void crouch() {
-		moveSpeed = baseMoveSpeed * 0.3f;
+		moveSpeed = baseMoveSpeed * 0.5f;
 	}
 
 	private void resetSpeed() {
 		moveSpeed = baseMoveSpeed;
 	}
 
-	private void resetCrouchCamera() {
-		Vector3 tempPos = new Vector3(cameraPos.position.x, cameraPos.position.y, cameraPos.position.z);
-		tempPos.y += 0.3f;
-		cameraPos.position = tempPos;
+	private void resetCameraPos() {
+		camera.localPosition = Vector3.Lerp(camera.localPosition, startPos, 5 * Time.deltaTime);
+	}
+	
+	private void resetHeadPos() {
+		head.localPosition = startPos;
+	}
+
+	private void bobbing() {
+		Vector3 tempPos = Vector3.zero;
+
+		tempPos.x += Mathf.Cos(Time.time * freq / 2) * amp * 2;
+		tempPos.y += Mathf.Sin(Time.time * freq) * amp;
+
+		camera.localPosition += tempPos;
+
+		Vector3 lookAtPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+		lookAtPos += head.forward * 15f;
+		camera.LookAt(lookAtPoint);
 	}
 }
