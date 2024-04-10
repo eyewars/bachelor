@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 public class playerMovement : MonoBehaviour{
-	private Vector3 startPos;
-	
-    [Header("Movement")]
+
+	[Header("Movement")]
     private float moveSpeed;
     public float baseMoveSpeed;
 
@@ -18,8 +17,8 @@ public class playerMovement : MonoBehaviour{
 	public float airMultiplier;
 	bool readyToJump;
 
-	[Range(0, 0.1f)] public float amp;
-	[Range(0, 30)] public float freq;
+	[Range(0, 0.02f)] public float amp;
+	[Range(0, 20)] public float freq;
 
 	[Header("Keybinds")]
 	public KeyCode jumpKey = KeyCode.Space;
@@ -31,8 +30,9 @@ public class playerMovement : MonoBehaviour{
 	
     public Transform head;
     public Transform camera;
-    public Transform lookAtPoint;
-
+    public Animator cameraBob;
+    private Vector3 startPos;
+	
    	float horizontalInput;
    	float verticalInput;
 
@@ -66,6 +66,8 @@ public class playerMovement : MonoBehaviour{
 		else {
 			rb.drag = 0;
 		}
+		
+		//movePlayer();
     }
 
     private void myInput(){
@@ -74,8 +76,10 @@ public class playerMovement : MonoBehaviour{
 
         if ((horizontalInput != 0) || (verticalInput != 0)) {
 	        bobbing();
+	        cameraBob.Play("Bobbing");
         } else {
 	        resetCameraPos();
+	        cameraBob.Play("None");
         }
         
         if (Input.GetKeyDown(KeyCode.LeftControl)) {
@@ -105,8 +109,9 @@ public class playerMovement : MonoBehaviour{
     }
 
     private void movePlayer(){
-        moveDirection = camera.forward * verticalInput + camera.right * horizontalInput;
-
+	    moveDirection = camera.forward * verticalInput + camera.right * horizontalInput;
+	    moveDirection = new Vector3(moveDirection.x, 0f, moveDirection.z);
+		// HUSK Time.deltaTime hvis du bruker update()!!!!!!!
         if (grounded){
 			rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
         }
@@ -152,6 +157,7 @@ public class playerMovement : MonoBehaviour{
 
 	private void resetCameraPos() {
 		camera.localPosition = Vector3.Lerp(camera.localPosition, startPos, 5 * Time.deltaTime);
+		//camera.localPosition = startPos;
 	}
 	
 	private void resetHeadPos() {
@@ -164,10 +170,10 @@ public class playerMovement : MonoBehaviour{
 		tempPos.x += Mathf.Cos(Time.time * freq / 2) * amp * 2;
 		tempPos.y += Mathf.Sin(Time.time * freq) * amp;
 
-		camera.localPosition += tempPos;
+		//camera.localPosition += tempPos;
 
-		Vector3 lookAtPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-		lookAtPos += head.forward * 15f;
-		camera.LookAt(lookAtPoint);
+		Vector3 lookAtPos = new Vector3(transform.position.x, transform.position.y + head.localPosition.y, transform.position.z);
+		lookAtPos += head.forward * 100f;
+		//camera.LookAt(lookAtPos );
 	}
 }

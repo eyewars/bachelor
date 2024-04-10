@@ -10,6 +10,8 @@ public class playerCam : MonoBehaviour{
 
     public Transform hand;
 
+    public Transform body;
+
     private float xPos;
     private float yPos;
 
@@ -24,10 +26,14 @@ public class playerCam : MonoBehaviour{
         
         xPos = Mathf.Clamp(xPos, -90f, 90f);
         
-        hand.localRotation = Quaternion.Euler(-xPos, yPos, 0);
+        hand.localRotation = Quaternion.Euler(-xPos, yPos, 0f);
 
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, yPos, 0), cameraAcceleration * Time.deltaTime);
-        camera.localRotation = Quaternion.Lerp(camera.localRotation, Quaternion.Euler(-xPos, 0, 0), cameraAcceleration * Time.deltaTime);
+        //body.rotation = Quaternion.Lerp(body.rotation, Quaternion.Euler(0f, yPos, 0f), cameraAcceleration * Time.deltaTime);
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0f, yPos, 0f), cameraAcceleration * Time.deltaTime);
+        camera.localRotation = Quaternion.Lerp(camera.localRotation, Quaternion.Euler(-xPos, 0f, 0f), cameraAcceleration * Time.deltaTime);
+
+        //body.rotation = Quaternion.Euler(0f, yPos, 0f);
+        //transform.localRotation = Quaternion.Euler(-xPos, 0f, 0f);
 
     }
 }
