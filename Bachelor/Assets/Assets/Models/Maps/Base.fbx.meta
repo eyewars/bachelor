@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dfa0a6a47e3df4e8bab0fdc79538b0a4
+guid: 2be0c4c17e0b04e4e960812d09cadd6f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,37 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BB Trim 3 QM
-    second: {fileID: 2100000, guid: 7e88edf4872454b9a8860463cb59c8f1, type: 2}
+    second: {fileID: 2100000, guid: bb22038de2bafd94581c8b08fef70a9c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BB Trim 6 QM - grey
-    second: {fileID: 2100000, guid: 40657e07e4c764ba4a644b51d2502f61, type: 2}
+    second: {fileID: 2100000, guid: 844fbc57ac49d9046bb30e73fe40ab77, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BB Trim 6 QM - yellow
-    second: {fileID: 2100000, guid: e7712d5c6890f4ce7aaa35b8ccdfb06b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BB Trim 6 QM - yellow.002
-    second: {fileID: 2100000, guid: 7560e52d5b1be4912b2cd5e6d1780a8a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: c2ea657c80ef242e184d02b4e6d4c13b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: ba230134bf7ca496e86b73b032d8ff22, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.002
-    second: {fileID: 2100000, guid: f9f51bfef7cc74dd5ac576ff6d7f87fe, type: 2}
+    second: {fileID: 2100000, guid: 42635e336b9015d42a2e3f45e44e4250, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

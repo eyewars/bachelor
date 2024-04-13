@@ -3,7 +3,12 @@ guid: e915ce5c1f2ce497caee16d1fc8a7726
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BB Trim 4 QM
+    second: {fileID: 2100000, guid: d0893b32b286f9c4d999638d0a2cf8c7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

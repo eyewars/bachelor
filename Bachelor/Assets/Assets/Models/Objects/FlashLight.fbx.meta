@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 31099a8d2c3534648808bf4a2fc8d12e
+guid: 04c7093fbd69c474ba287e9554f8a989
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Base
-    second: {fileID: 2100000, guid: b209e5a36d8ac4184a21abc8c4013d10, type: 2}
+    second: {fileID: 2100000, guid: f157a240955f17140bf52f1c83090fb8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rubber
-    second: {fileID: 2100000, guid: bc2446f5fba364b21a22d67ff19a759f, type: 2}
+    second: {fileID: 2100000, guid: 2a0dbab2b9193c3478d68b1e5d128685, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
