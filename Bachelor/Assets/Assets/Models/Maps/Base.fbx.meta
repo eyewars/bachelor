@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2be0c4c17e0b04e4e960812d09cadd6f
+guid: 8188ef0720d05254b93429d07a788a07
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -19,6 +19,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: BB Trim 6 QM - yellow
     second: {fileID: 2100000, guid: 42635e336b9015d42a2e3f45e44e4250, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glas
+    second: {fileID: 2100000, guid: 3cdc404f9aa52104b9e8029fdb5b97b1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
