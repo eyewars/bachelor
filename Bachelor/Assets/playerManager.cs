@@ -8,7 +8,9 @@ public class playerManager : MonoBehaviour{
     public bool hasFlashlight;
     public float maxBattery;
     public float battery;
-    
+
+    public List<int> keyIds = new List<int>();
+
     void Awake(){
         if (instance != null){
             Debug.LogError("BRO DET ER MER ENN EN PLAYERMANAGER!!!!!!!!!!!!!!!!!!");

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class batteryInterract : MonoBehaviour, interactable{
+public class batteryInteract : MonoBehaviour, interactable{
     public float batteryRefill;
 
     public void interact() {

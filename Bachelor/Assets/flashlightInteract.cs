@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class flashlightInterract : MonoBehaviour, interactable{
+public class flashlightInteract : MonoBehaviour, interactable{
     public TextMeshProUGUI batteryText;
     public GameObject flashLightModel;
     

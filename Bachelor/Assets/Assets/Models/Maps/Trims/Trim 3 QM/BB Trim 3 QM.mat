@@ -442,7 +442,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.59999996
     - _GlossyReflections: 1
-    - _HeightAmplitude: 0.004
+    - _HeightAmplitude: 0
     - _HeightAmplitude0: 0.02
     - _HeightAmplitude1: 0.02
     - _HeightAmplitude2: 0.02
@@ -472,7 +472,7 @@ Material:
     - _HeightOffset1: 0
     - _HeightOffset2: 0
     - _HeightOffset3: 0
-    - _HeightPoMAmplitude: 0.4
+    - _HeightPoMAmplitude: 0
     - _HeightPoMAmplitude0: 2
     - _HeightPoMAmplitude1: 2
     - _HeightPoMAmplitude2: 2
