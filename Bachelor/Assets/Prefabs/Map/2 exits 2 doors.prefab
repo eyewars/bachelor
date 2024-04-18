@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7978df06f85071c4c86f017b15e4ecbd, type: 3}
       propertyPath: m_Name
-      value: Hall3 Variant
+      value: 2 exits 2 doors
       objectReference: {fileID: 0}
     - target: {fileID: 1086542142276709764, guid: 7978df06f85071c4c86f017b15e4ecbd, type: 3}
       propertyPath: m_Layer

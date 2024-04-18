@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 23093103ace555947986191b97433b18, type: 3}
       propertyPath: m_Name
-      value: Hall1 Variant
+      value: 2 exits small
       objectReference: {fileID: 0}
     - target: {fileID: 7938672994448816121, guid: 23093103ace555947986191b97433b18, type: 3}
       propertyPath: m_IsActive

@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 213b8bf0bd4986a4a8052df1355582cd, type: 3}
       propertyPath: m_Name
-      value: Hall2 Variant
+      value: 2 exits big
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 213b8bf0bd4986a4a8052df1355582cd, type: 3}
       propertyPath: m_IsActive
