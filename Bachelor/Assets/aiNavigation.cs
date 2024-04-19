@@ -44,15 +44,14 @@ public class aiNavigation : MonoBehaviour{
 
                 if (patrolForward){
                     currentPatrolIndex++;
-                }else{
+                } else{
                     currentPatrolIndex--;
                 }
 
                 if(patrolPoints[previousPatrolIndex].tag == "shouldIdle"){
                     isIdling = true;
                     Invoke(nameof(patrol), 2.5f);
-                }
-                else {
+                } else {
                     patrol();
                 }
             }
