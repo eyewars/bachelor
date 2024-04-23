@@ -1457,7 +1457,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &413667699
 PrefabInstance:
@@ -2705,10 +2705,6 @@ MonoBehaviour:
   m_Script: {fileID: 1853063238}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Entries:
-  - id: 0
-    category: 0
-    gameObject: {fileID: 0}
 --- !u!4 &798254271
 Transform:
   m_ObjectHideFlags: 19
@@ -6660,7 +6656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7603039553065789347, guid: c64cacc04782a42c4aa67d95cdf22bee, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7603039553065789347, guid: c64cacc04782a42c4aa67d95cdf22bee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6837,7 +6833,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4734867680631967414, guid: 310c67362d81044d7bbc1c04070dda47, type: 3}
       propertyPath: roofToggle
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5049492283026888574, guid: 310c67362d81044d7bbc1c04070dda47, type: 3}
       propertyPath: m_RootOrder
