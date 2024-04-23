@@ -54,7 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6276057742682458930, guid: a4a527434b830254f93e444c472d56cb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6276057742682458930, guid: a4a527434b830254f93e444c472d56cb, type: 3}
+      propertyPath: m_TagString
+      value: roof
       objectReference: {fileID: 0}
     - target: {fileID: -967132171628444318, guid: a4a527434b830254f93e444c472d56cb, type: 3}
       propertyPath: m_Layer

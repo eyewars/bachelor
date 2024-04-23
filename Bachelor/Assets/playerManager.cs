@@ -11,6 +11,8 @@ public class playerManager : MonoBehaviour{
 
     public List<int> keyIds = new List<int>();
 
+    public bool roofToggle;
+
     void Awake(){
         if (instance != null){
             Debug.LogError("BRO DET ER MER ENN EN PLAYERMANAGER!!!!!!!!!!!!!!!!!!");
@@ -18,7 +20,14 @@ public class playerManager : MonoBehaviour{
         }
         instance = this;
     }
-    void Start() { }
+
+    void Start() {
+        GameObject[] mapParts = GameObject.FindGameObjectsWithTag("roof");
+
+        for (int i = 0; i < mapParts.Length; i++) {
+            mapParts[i].SetActive(roofToggle);
+        }
+    }
     
     void Update() { }
 }

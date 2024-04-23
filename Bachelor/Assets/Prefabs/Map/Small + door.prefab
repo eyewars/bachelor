@@ -10,7 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8782403441189591025, guid: 735639382b880e34f9e72cb82606fe9b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8782403441189591025, guid: 735639382b880e34f9e72cb82606fe9b, type: 3}
+      propertyPath: m_TagString
+      value: roof
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 735639382b880e34f9e72cb82606fe9b, type: 3}
       propertyPath: m_RootOrder
