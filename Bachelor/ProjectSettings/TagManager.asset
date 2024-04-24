@@ -6,6 +6,7 @@ TagManager:
   tags:
   - shouldIdle
   - roof
+  - deadLamp
   layers:
   - Default
   - TransparentFX

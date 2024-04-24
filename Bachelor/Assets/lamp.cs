@@ -7,25 +7,44 @@ using UnityEngine.Rendering.HighDefinition;
 public class lamp : MonoBehaviour{
     public bool isStrong;
 
-    private float strongIntesity = 200f;
-    private float weakIntensity = 2f;
+    private float strongIntesity = 100f;
+    private float weakIntensity = 1f;
+
+    public Material strongEmission;
+    public Material weakEmission;
+
+    private Material materialRenderer;
 
     // MÅ BYTTE TYPE TIL NOE HDRP LYS GREIER 
     // https://forum.unity.com/threads/light-intensity-doesnt-work-with-hdrp.706382/
-    private Light myLight;
-    
+    private HDAdditionalLightData myLight;
+
     // Mathf.PingPong() kan være nice for noe, feks alarm greier på starten
     void Start() {
-        myLight = transform.GetChild(1).GetComponent<Light>();
+        myLight = transform.GetChild(1).GetComponent<HDAdditionalLightData>();
 
-        if (isStrong) {
-            myLight.intensity = strongIntesity;
-            Debug.Log("STERK!!!!!!!!!!");
-        } else {
-            myLight.intensity = weakIntensity;
-            Debug.Log("svak");
-        }
+        materialRenderer = GetComponent<Renderer>().material;
+
+        changeIntensity();
     }
 
-    void Update() { }
+    public void toogleLamp() {
+        if (isStrong) {
+            isStrong = false;
+        } else {
+            isStrong = true;
+        }
+
+        changeIntensity();
+    }
+
+    private void changeIntensity() {
+        if (isStrong) {
+            myLight.intensity = strongIntesity;
+            transform.GetChild(0).GetComponent<Renderer>().material = strongEmission;
+        } else {
+            myLight.intensity = weakIntensity;
+            transform.GetChild(0).GetComponent<Renderer>().material = weakEmission;
+        }
+    }
 }

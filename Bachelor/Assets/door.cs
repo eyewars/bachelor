@@ -53,11 +53,9 @@ public class door : MonoBehaviour, interactable{
             }
         } else {
             if (doors[0].localPosition.x > 0f) {
-                Debug.Log("HER ER VI");
                 doors[0].localPosition = new Vector3(doors[0].localPosition.x - (0.001f * doorSpeed * Time.deltaTime), 0f, 0f);
                 doors[1].localPosition = new Vector3(doors[1].localPosition.x + (0.001f * doorSpeed * Time.deltaTime), 0f, 0f);
             } else if (doors[0].localPosition.x < 0f) {
-                Debug.Log("HER ER VI IKKE");
                 doors[0].localPosition = new Vector3(0f, 0f, 0f);
                 doors[1].localPosition = new Vector3(0f, 0f, 0f);
             }

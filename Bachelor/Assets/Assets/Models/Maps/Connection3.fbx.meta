@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1f6d95ad301604126a2809e8c5b81cd7
+guid: 07fb3d50706a44d2196da2d6566b75f0
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Emission
-    second: {fileID: 2100000, guid: d8cf7c77afc394ed68cee5f292bc125b, type: 2}
+      name: BB Trim 3 QM
+    second: {fileID: 2100000, guid: bb22038de2bafd94581c8b08fef70a9c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Lamp
-    second: {fileID: 2100000, guid: dd169d51c86414446b155524b05e39bc, type: 2}
+      name: BB Trim 6 QM - grey
+    second: {fileID: 2100000, guid: 844fbc57ac49d9046bb30e73fe40ab77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BB Trim 6 QM - yellow
+    second: {fileID: 2100000, guid: 42635e336b9015d42a2e3f45e44e4250, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
