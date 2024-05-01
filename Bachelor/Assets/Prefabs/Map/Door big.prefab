@@ -70,7 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5404ba6d29aa24b88b693559ccc099a5, type: 3}
       propertyPath: m_Name
-      value: Door Variant
+      value: Door big
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5404ba6d29aa24b88b693559ccc099a5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -114,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOpen: 0
   keyId: 0
+  isBig: 1
   doorSpeed: 15
   openRange: 4
   playerMask:

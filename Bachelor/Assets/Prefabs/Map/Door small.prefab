@@ -226,14 +226,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOpen: 0
   keyId: 0
-  doorSpeed: 0
-  openRange: 0
+  isBig: 0
+  doorSpeed: 20
+  openRange: 4
   playerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   wallMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
 --- !u!65 &8209402649170334132
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -249,7 +250,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
