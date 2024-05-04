@@ -53,6 +53,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5586672658470711432, guid: 4b9f3ef7d3f294613b465d2c382b7d7a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5586672658470711432, guid: 4b9f3ef7d3f294613b465d2c382b7d7a, type: 3}
       propertyPath: m_TagString
       value: roof
       objectReference: {fileID: 0}
@@ -66,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4b9f3ef7d3f294613b465d2c382b7d7a, type: 3}
       propertyPath: m_Name
-      value: Connection2 Variant
+      value: Connection2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

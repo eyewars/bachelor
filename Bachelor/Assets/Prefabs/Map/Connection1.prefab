@@ -57,12 +57,16 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -5417766427094261641, guid: 13494ecdcdeb5834ea353bcf5cd00802, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5417766427094261641, guid: 13494ecdcdeb5834ea353bcf5cd00802, type: 3}
       propertyPath: m_TagString
       value: roof
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 13494ecdcdeb5834ea353bcf5cd00802, type: 3}
       propertyPath: m_Name
-      value: Connection1 Variant
+      value: Connection1
       objectReference: {fileID: 0}
     - target: {fileID: 6597708567430471729, guid: 13494ecdcdeb5834ea353bcf5cd00802, type: 3}
       propertyPath: m_Layer
