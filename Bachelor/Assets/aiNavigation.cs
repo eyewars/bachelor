@@ -10,7 +10,8 @@ public class aiNavigation : MonoBehaviour{
     private Vector3 walkPos;
     public Transform player;
 
-    public List<GameObject> patrolPoints = new List<GameObject>();
+    public GameObject patrolPointHolder;
+    private List<Transform> patrolPoints = new List<Transform>();
     private int currentPatrolIndex = 0;
     private int previousPatrolIndex = 0;
 
@@ -26,7 +27,14 @@ public class aiNavigation : MonoBehaviour{
     public LayerMask playerMask;
     public LayerMask wallMask;
 
+    private Animator animator;
+
     void Start() {
+        patrolPoints.AddRange(patrolPointHolder.GetComponentsInChildren<Transform>());
+        patrolPoints.Remove(patrolPointHolder.transform);
+
+        animator = GetComponent<Animator>();
+        
         patrol();
 
         StartCoroutine(visualTimer());
@@ -48,8 +56,9 @@ public class aiNavigation : MonoBehaviour{
                     currentPatrolIndex--;
                 }
 
-                if(patrolPoints[previousPatrolIndex].tag == "shouldIdle"){
+                if(patrolPoints[previousPatrolIndex].gameObject.tag == "shouldIdle"){
                     isIdling = true;
+                    animator.SetBool("isWalking", false);
                     Invoke(nameof(patrol), 2.5f);
                 } else {
                     patrol();
@@ -57,7 +66,7 @@ public class aiNavigation : MonoBehaviour{
             }
         } else {
             agent.SetDestination(player.position);
-            
+
             if (!canSeePlayer) {
                 patrol();
             } 
@@ -65,9 +74,10 @@ public class aiNavigation : MonoBehaviour{
     }
 
     void patrol(){
-        agent.SetDestination(patrolPoints[currentPatrolIndex].transform.position);
+        agent.SetDestination(patrolPoints[currentPatrolIndex].position);
         
         isIdling = false;
+        animator.SetBool("isWalking", true);
     }
 
     IEnumerator visualTimer(){
@@ -90,13 +100,17 @@ public class aiNavigation : MonoBehaviour{
 
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, wallMask)){
                     canSeePlayer = true;
-                }
-                else {
+                    animator.SetBool("isChasing", true);
+                    //animator.SetBool("isWalking", true); --- Dette var for å fikse at den idler etter den har chasea deg, men tror ikke det funka helt
+                    //Er også noen bugs som gjør at den av og til kan se deg gjennom veggen eller noe sånn
+                } else {
                     canSeePlayer = false;
+                    animator.SetBool("isChasing", false);
                 }
             }
         } else{
             canSeePlayer = false;
+            animator.SetBool("isChasing", false);
         }
     }
 }

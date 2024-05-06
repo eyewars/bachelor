@@ -75,15 +75,11 @@ public class door : MonoBehaviour, interactable{
                 }
             }
         } else {
-            Debug.Log(doors[1].localPosition);
-
-
             if (isOpen) {
                 // LOKKA: -0.2376854
                 // ÅPEN: 1.471
                 if (doors[1].localPosition.x < 1.471f) {
-                    Debug.Log(" TEHT HAE HUTIOIHUAETHIUAEHIUOTHUIPAET");
-                        doors[1].localPosition = new Vector3(doors[1].localPosition.x + (0.2f * doorSpeed * Time.deltaTime), -0.08292082f, -0.7379031f);
+                    doors[1].localPosition = new Vector3(doors[1].localPosition.x + (0.2f * doorSpeed * Time.deltaTime), -0.08292082f, -0.7379031f);
                     } else if (doors[1].localPosition.x >= 1.471f) {
                         doors[1].localPosition = new Vector3(1.471f, -0.08292082f, -0.7379031f);
 
