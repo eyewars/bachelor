@@ -130,6 +130,7 @@ MonoBehaviour:
   patrolPointHolder: {fileID: 0}
   visualRange: 50
   visualAngle: 120
+  audioThreshold: 1.5
   playerMask:
     serializedVersion: 2
     m_Bits: 256

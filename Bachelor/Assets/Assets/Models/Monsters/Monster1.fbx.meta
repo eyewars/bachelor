@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6bd33fc8b0dcb48b0b9751da736f220e
+guid: d3c3e7a96f2414ad2b1696448cc3d6e8
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Body
-    second: {fileID: 2100000, guid: 13c39f8c41565405d801d025a5e9f6d5, type: 2}
+    second: {fileID: 2100000, guid: 3e48af6df7d9540f882873defc6c4883, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Jeans
-    second: {fileID: 2100000, guid: 0ba6c074d780f4ac2a40121b69b3fa15, type: 2}
+    second: {fileID: 2100000, guid: 95c8f8f94944b4d62a4ba3e0352aaa33, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Shirt
-    second: {fileID: 2100000, guid: 20b41e8ef130a44f5b692b3fa97bac1d, type: 2}
+    second: {fileID: 2100000, guid: d7b9c560b44a343f8aa7277c3a4a3e9a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Teeth
-    second: {fileID: 2100000, guid: 50af69b9b199641bf8aa8887dab739e3, type: 2}
+    second: {fileID: 2100000, guid: 119829064c65a4ae68683409fba75c98, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -53,11 +53,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: rig.001|Idle_MONSTER1 (1)
-      takeName: rig.001|Idle_MONSTER1
-      internalID: -2109796120158867914
+      name: rig.001|WalkingMonster1 (1)
+      takeName: rig.001|WalkingMonster1
+      internalID: 240443945227894880
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 122
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -82,11 +82,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: rig.001|Idle_MONSTER1
-      takeName: rig.001|Idle_MONSTER1
-      internalID: 2981407602641654083
+      name: rig.001|RunningMonster1
+      takeName: rig.001|RunningMonster1
+      internalID: -2375688378795957497
       firstFrame: 0
-      lastFrame: 130
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -111,11 +111,69 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: rig.001|walking_MONSTER1
-      takeName: rig.001|walking_MONSTER1
-      internalID: -4368730224603118304
+      name: rig.001|ScreamingMonster1
+      takeName: rig.001|ScreamingMonster1
+      internalID: 859863635572062657
       firstFrame: 0
-      lastFrame: 30
+      lastFrame: 86
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: rig.001|WalkingMonster1
+      takeName: rig.001|WalkingMonster1
+      internalID: -3783979687950368771
+      firstFrame: 0
+      lastFrame: 122
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: LowRes_Jeans|WalkingMonster1
+      takeName: LowRes_Jeans|WalkingMonster1
+      internalID: 5406425505602886078
+      firstFrame: 0
+      lastFrame: 122
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

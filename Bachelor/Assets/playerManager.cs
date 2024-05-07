@@ -13,6 +13,11 @@ public class playerManager : MonoBehaviour{
 
     public bool roofToggle;
 
+    public float standAudioMult;
+    public float crouchAudioMult;
+    public float normalAudioMult;
+    public float runningAudioMult;
+
     void Awake(){
         if (instance != null){
             Debug.LogError("BRO DET ER MER ENN EN PLAYERMANAGER!!!!!!!!!!!!!!!!!!");
@@ -28,6 +33,4 @@ public class playerManager : MonoBehaviour{
             mapParts[i].SetActive(roofToggle);
         }
     }
-    
-    void Update() { }
 }
