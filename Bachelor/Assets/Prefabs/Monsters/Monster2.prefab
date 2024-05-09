@@ -128,6 +128,7 @@ MonoBehaviour:
   agent: {fileID: -2924505165530424602}
   player: {fileID: 0}
   patrolPointHolder: {fileID: 0}
+  shouldLoop: 0
   visualRange: 50
   visualAngle: 120
   audioThreshold: 1.5
@@ -137,6 +138,8 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 512
+  walkSpeed: 5
+  runSpeed: 8.5
 --- !u!95 &-3502363776673794243
 Animator:
   serializedVersion: 5

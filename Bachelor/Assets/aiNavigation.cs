@@ -16,6 +16,7 @@ public class aiNavigation : MonoBehaviour{
     private int currentPatrolIndex = 0;
     private int previousPatrolIndex = 0;
 
+    public bool shouldLoop;
     private bool patrolForward = true;
 
     private bool isIdling = false;
@@ -33,8 +34,13 @@ public class aiNavigation : MonoBehaviour{
     public LayerMask wallMask;
 
     private Animator animator;
+    
+    public float walkSpeed;
+    public float runSpeed;
 
     void Start() {
+        agent.speed = walkSpeed;
+        
         patrolPoints.AddRange(patrolPointHolder.GetComponentsInChildren<Transform>());
         patrolPoints.Remove(patrolPointHolder.transform);
 
@@ -49,18 +55,28 @@ public class aiNavigation : MonoBehaviour{
 
     void Update() {
         if (!canSeePlayer) {
+            agent.speed = walkSpeed;
+            
             if ((agent.remainingDistance < 0.1) && !isIdling) {
                 previousPatrolIndex = currentPatrolIndex;
-                if (currentPatrolIndex == 0) {
-                    patrolForward = true;
-                } else if (currentPatrolIndex == (patrolPoints.Count - 1)) {
-                    patrolForward = false;
-                }
-
-                if (patrolForward) {
-                    currentPatrolIndex++;
+                if (!shouldLoop) {
+                    if (currentPatrolIndex == 0) {
+                        patrolForward = true;
+                    } else if (currentPatrolIndex == (patrolPoints.Count - 1)) {
+                        patrolForward = false;
+                    }
+                    
+                    if (patrolForward) {
+                        currentPatrolIndex++;
+                    } else {
+                        currentPatrolIndex--;
+                    }
                 } else {
-                    currentPatrolIndex--;
+                    currentPatrolIndex++;
+                    
+                    if (currentPatrolIndex == patrolPoints.Count) {
+                        currentPatrolIndex = 0;
+                    }
                 }
 
                 if (patrolPoints[previousPatrolIndex].gameObject.tag == "shouldIdle") {
@@ -72,6 +88,8 @@ public class aiNavigation : MonoBehaviour{
                 }
             }
         } else {
+            agent.speed = runSpeed;
+            
             agent.SetDestination(player.transform.position);
 
             if (!canSeePlayer) {
@@ -108,7 +126,7 @@ public class aiNavigation : MonoBehaviour{
                     float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
                     Vector3 adjustedPosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
-                    
+
                     if (!Physics.Raycast(adjustedPosition, directionToTarget, distanceToTarget, wallMask)) {
                         canSeePlayer = true;
                         animator.SetBool("isChasing", true);
@@ -134,7 +152,7 @@ public class aiNavigation : MonoBehaviour{
             audioMultiplier = playerManager.instance.crouchAudioMult;
         } else if (playerScript.movementType == 1) {
             audioMultiplier = playerManager.instance.normalAudioMult;
-        } else if (playerScript.movementType == 2){
+        } else if (playerScript.movementType == 2) {
             audioMultiplier = playerManager.instance.runningAudioMult;
         } else {
             audioMultiplier = playerManager.instance.standAudioMult;
