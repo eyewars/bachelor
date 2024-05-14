@@ -49,22 +49,26 @@ public class playerMovement : MonoBehaviour{
     }
 
     void FixedUpdate() {
-        movePlayer();
+        if (!playerManager.instance.hasLost) {
+            movePlayer();
+        }
     }
 
     void Update() {
-        // +0.2f er for å ha litt å gå på (tror vi lol), hvis noe fucker seg senere kanskje den burde endres litt på!!
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-        myInput();
-        speedControl();
-
-        if (grounded) {
-            rb.drag = groundDrag;
-        } else {
-            rb.drag = 0;
+        if (!playerManager.instance.hasLost) {
+           // +0.2f er for å ha litt å gå på (tror vi lol), hvis noe fucker seg senere kanskje den burde endres litt på!!
+            grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+            myInput();
+            speedControl();
+           
+            if (grounded) {
+                rb.drag = groundDrag;
+            } else {
+                rb.drag = 0;
+            }
+           
+            //movePlayer(); 
         }
-
-        //movePlayer();
     }
 
     private void myInput() {
@@ -72,7 +76,6 @@ public class playerMovement : MonoBehaviour{
         verticalInput = Input.GetAxisRaw("Vertical");
 
         if ((horizontalInput != 0) || (verticalInput != 0)) {
-            bobbing();
             cameraBob.Play("Bobbing");
         } else {
             resetCameraPos();
@@ -106,20 +109,23 @@ public class playerMovement : MonoBehaviour{
     }
 
     private void movePlayer() {
-        moveDirection = camera.forward * verticalInput + camera.right * horizontalInput;
-        moveDirection = new Vector3(moveDirection.x, 0f, moveDirection.z);
-        // HUSK Time.deltaTime hvis du bruker update()!!!!!!!
-        if (grounded) {
-            rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
-        } else {
-            rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Force);
-        }
+
+            moveDirection = camera.forward * verticalInput + camera.right * horizontalInput;
+            moveDirection = new Vector3(moveDirection.x, 0f, moveDirection.z);
+            // HUSK Time.deltaTime hvis du bruker update()!!!!!!!
+            if (grounded) {
+                rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+            } else {
+                rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Force);
+            }
+
+            if (rb.velocity.magnitude < 0.01) {
+                movementType = 3;
+            } else if (moveSpeed == baseMoveSpeed) {
+                movementType = 1;
+            }
+       
         
-        if (rb.velocity.magnitude < 0.01) {
-            movementType = 3;
-        } else if (moveSpeed == baseMoveSpeed) {
-            movementType = 1;
-        }
     }
 
     private void speedControl() {
@@ -173,18 +179,5 @@ public class playerMovement : MonoBehaviour{
 
     private void resetHeadPos() {
         head.localPosition = startPos;
-    }
-
-    private void bobbing() {
-        Vector3 tempPos = Vector3.zero;
-
-        tempPos.x += Mathf.Cos(Time.time * freq / 2) * amp * 2;
-        tempPos.y += Mathf.Sin(Time.time * freq) * amp;
-
-        //camera.localPosition += tempPos;
-
-        Vector3 lookAtPos = new Vector3(transform.position.x, transform.position.y + head.localPosition.y, transform.position.z);
-        lookAtPos += head.forward * 100f;
-        //camera.LookAt(lookAtPos );
     }
 }

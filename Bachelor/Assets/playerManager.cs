@@ -18,11 +18,14 @@ public class playerManager : MonoBehaviour{
     public float normalAudioMult;
     public float runningAudioMult;
 
-    void Awake(){
-        if (instance != null){
+    public bool hasLost;
+
+    void Awake() {
+        if (instance != null) {
             Debug.LogError("BRO DET ER MER ENN EN PLAYERMANAGER!!!!!!!!!!!!!!!!!!");
             return;
         }
+
         instance = this;
     }
 
@@ -32,5 +35,9 @@ public class playerManager : MonoBehaviour{
         for (int i = 0; i < mapParts.Length; i++) {
             mapParts[i].SetActive(roofToggle);
         }
+    }
+
+    public void gameOverSceneChange() {
+        Debug.Log("Nå bytter vi til end scenen");
     }
 }

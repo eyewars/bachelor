@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -34,13 +35,13 @@ public class aiNavigation : MonoBehaviour{
     public LayerMask wallMask;
 
     private Animator animator;
-    
+
     public float walkSpeed;
     public float runSpeed;
 
     void Start() {
         agent.speed = walkSpeed;
-        
+
         patrolPoints.AddRange(patrolPointHolder.GetComponentsInChildren<Transform>());
         patrolPoints.Remove(patrolPointHolder.transform);
 
@@ -54,47 +55,51 @@ public class aiNavigation : MonoBehaviour{
     }
 
     void Update() {
-        if (!canSeePlayer) {
-            agent.speed = walkSpeed;
-            
-            if ((agent.remainingDistance < 0.1) && !isIdling) {
-                previousPatrolIndex = currentPatrolIndex;
-                if (!shouldLoop) {
-                    if (currentPatrolIndex == 0) {
-                        patrolForward = true;
-                    } else if (currentPatrolIndex == (patrolPoints.Count - 1)) {
-                        patrolForward = false;
-                    }
-                    
-                    if (patrolForward) {
-                        currentPatrolIndex++;
+        if (!playerManager.instance.hasLost) {
+            if (!canSeePlayer) {
+                agent.speed = walkSpeed;
+
+                if ((agent.remainingDistance < 0.1) && !isIdling) {
+                    previousPatrolIndex = currentPatrolIndex;
+                    if (!shouldLoop) {
+                        if (currentPatrolIndex == 0) {
+                            patrolForward = true;
+                        } else if (currentPatrolIndex == (patrolPoints.Count - 1)) {
+                            patrolForward = false;
+                        }
+
+                        if (patrolForward) {
+                            currentPatrolIndex++;
+                        } else {
+                            currentPatrolIndex--;
+                        }
                     } else {
-                        currentPatrolIndex--;
+                        currentPatrolIndex++;
+
+                        if (currentPatrolIndex == patrolPoints.Count) {
+                            currentPatrolIndex = 0;
+                        }
                     }
-                } else {
-                    currentPatrolIndex++;
-                    
-                    if (currentPatrolIndex == patrolPoints.Count) {
-                        currentPatrolIndex = 0;
+
+                    if (patrolPoints[previousPatrolIndex].gameObject.tag == "shouldIdle") {
+                        isIdling = true;
+                        animator.SetBool("isWalking", false);
+                        Invoke(nameof(patrol), 2.5f);
+                    } else {
+                        patrol();
                     }
                 }
+            } else {
+                agent.speed = runSpeed;
 
-                if (patrolPoints[previousPatrolIndex].gameObject.tag == "shouldIdle") {
-                    isIdling = true;
-                    animator.SetBool("isWalking", false);
-                    Invoke(nameof(patrol), 2.5f);
-                } else {
+                agent.SetDestination(player.transform.position);
+
+                if (!canSeePlayer) {
                     patrol();
                 }
             }
         } else {
-            agent.speed = runSpeed;
             
-            agent.SetDestination(player.transform.position);
-
-            if (!canSeePlayer) {
-                patrol();
-            }
         }
     }
 
@@ -110,6 +115,7 @@ public class aiNavigation : MonoBehaviour{
         while (true) {
             findPlayerVisual();
             findPlayerAudio();
+            checkForGameOver();
             yield return new WaitForSeconds(0.2f);
         }
     }
@@ -168,6 +174,63 @@ public class aiNavigation : MonoBehaviour{
             } else {
                 canSeePlayer = false;
                 animator.SetBool("isChasing", false);
+            }
+        }
+    }
+    
+    void checkForGameOver() {
+        if (!playerManager.instance.hasLost) {
+            Collider[] rangeCheck = Physics.OverlapSphere(transform.position, 50, playerMask);
+
+            if (rangeCheck.Length > 0) {
+                Transform target = rangeCheck[0].transform;
+                float distanceToTarget = Vector3.Distance(transform.position, target.position);
+                Debug.Log(distanceToTarget);
+                if (((distanceToTarget < 2.5f) && (canSeePlayer))) {
+                    playerManager.instance.hasLost = true;
+                    agent.SetDestination(transform.position);
+
+                    playerManager.instance.Invoke("gameOverSceneChange", 7.5f);
+
+                    player.GetComponent<playerMovement>().cameraBob.Play("None");
+
+                    Transform head = player.transform.GetChild(0);
+                    Transform camera = head.GetChild(0);
+
+                    Vector3 directionToTarget = -(target.position - transform.position).normalized;
+
+                    float dotProduct = Vector3.Dot(player.transform.forward.normalized, directionToTarget);
+                    Vector3 crossProduct = Vector3.Cross(player.transform.forward.normalized, directionToTarget);
+
+                    float angle = Mathf.Atan2(crossProduct.magnitude, dotProduct);
+                    Vector3 axis = crossProduct.normalized;
+                    Debug.Log("Rotation Angle: " + angle * Mathf.Rad2Deg + " degrees");
+                    Debug.Log("Rotation Axis: " + axis);
+                    
+                    Quaternion rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, axis);
+
+                    head.localRotation = rotation;
+                    
+                    Vector3 eulerAngles = player.transform.eulerAngles;
+                    eulerAngles.x = 0f;
+                    eulerAngles.z = 0f;
+                    player.transform.eulerAngles = eulerAngles;
+                    
+                    Vector3 eulerAngles2 = head.localEulerAngles;
+                    eulerAngles2.x = 0f;
+                    eulerAngles2.z = 0f;
+                    head.localEulerAngles = eulerAngles2;
+                    
+                    Vector3 eulerAngles3 = camera.localEulerAngles;
+                    eulerAngles3.x = 0f;
+                    eulerAngles3.y = 0f;
+                    eulerAngles3.z = 0f;
+                    camera.localEulerAngles = eulerAngles3;
+
+                    transform.LookAt(player.transform);
+                    
+                    animator.SetBool("isCaught", true);
+                }
             }
         }
     }
