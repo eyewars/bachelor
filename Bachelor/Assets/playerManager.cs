@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerManager : MonoBehaviour{
     public static playerManager instance;
@@ -38,6 +39,8 @@ public class playerManager : MonoBehaviour{
     }
 
     public void gameOverSceneChange() {
-        Debug.Log("Nå bytter vi til end scenen");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene(2);
     }
 }

@@ -55,6 +55,7 @@ public class aiNavigation : MonoBehaviour{
     }
 
     void Update() {
+        checkForGameOver();
         if (!playerManager.instance.hasLost) {
             if (!canSeePlayer) {
                 agent.speed = walkSpeed;
@@ -98,8 +99,6 @@ public class aiNavigation : MonoBehaviour{
                     patrol();
                 }
             }
-        } else {
-            
         }
     }
 
@@ -115,7 +114,7 @@ public class aiNavigation : MonoBehaviour{
         while (true) {
             findPlayerVisual();
             findPlayerAudio();
-            checkForGameOver();
+            //checkForGameOver(); DENNE ER I UPDATE NÅ
             yield return new WaitForSeconds(0.2f);
         }
     }
@@ -186,11 +185,11 @@ public class aiNavigation : MonoBehaviour{
                 Transform target = rangeCheck[0].transform;
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
                 Debug.Log(distanceToTarget);
-                if (((distanceToTarget < 2.5f) && (canSeePlayer))) {
+                if (((distanceToTarget < 2f) && (canSeePlayer))) {
                     playerManager.instance.hasLost = true;
                     agent.SetDestination(transform.position);
 
-                    playerManager.instance.Invoke("gameOverSceneChange", 7.5f);
+                    playerManager.instance.Invoke("gameOverSceneChange", 2.5f);
 
                     player.GetComponent<playerMovement>().cameraBob.Play("None");
 

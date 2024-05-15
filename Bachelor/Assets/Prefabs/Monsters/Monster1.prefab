@@ -129,7 +129,7 @@ MonoBehaviour:
   player: {fileID: 0}
   patrolPointHolder: {fileID: 0}
   shouldLoop: 0
-  visualRange: 2.5
+  visualRange: 2
   visualAngle: 120
   audioThreshold: 0.8
   playerMask:
