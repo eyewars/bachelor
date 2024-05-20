@@ -45,7 +45,6 @@ public class door : MonoBehaviour, interactable{
             wheels[1] = doors[1].GetChild(0);
         }
 
-
         StartCoroutine(doorTimer());
 
         if (keyId == 0) {

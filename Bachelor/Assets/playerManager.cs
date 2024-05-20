@@ -11,6 +11,7 @@ public class playerManager : MonoBehaviour{
     public float battery;
 
     public List<int> keyIds = new List<int>();
+    public List<int> machineIds = new List<int>();
 
     public bool roofToggle;
 

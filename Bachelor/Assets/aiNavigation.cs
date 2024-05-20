@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -39,7 +40,14 @@ public class aiNavigation : MonoBehaviour{
     public float walkSpeed;
     public float runSpeed;
 
+    private AudioSource source;
+    public AudioClip[] walkingSounds;
+    public AudioClip[] chasingSounds;
+    public AudioClip[] screamingSounds;
+
     void Start() {
+        source = GetComponent<AudioSource>();
+
         agent.speed = walkSpeed;
 
         patrolPoints.AddRange(patrolPointHolder.GetComponentsInChildren<Transform>());
@@ -114,6 +122,7 @@ public class aiNavigation : MonoBehaviour{
         while (true) {
             findPlayerVisual();
             findPlayerAudio();
+            playSound();
             //checkForGameOver(); DENNE ER I UPDATE NÅ
             yield return new WaitForSeconds(0.2f);
         }
@@ -176,7 +185,7 @@ public class aiNavigation : MonoBehaviour{
             }
         }
     }
-    
+
     void checkForGameOver() {
         if (!playerManager.instance.hasLost) {
             Collider[] rangeCheck = Physics.OverlapSphere(transform.position, 50, playerMask);
@@ -184,7 +193,7 @@ public class aiNavigation : MonoBehaviour{
             if (rangeCheck.Length > 0) {
                 Transform target = rangeCheck[0].transform;
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
-                Debug.Log(distanceToTarget);
+
                 if (((distanceToTarget < 2f) && (canSeePlayer))) {
                     playerManager.instance.hasLost = true;
                     agent.SetDestination(transform.position);
@@ -203,23 +212,21 @@ public class aiNavigation : MonoBehaviour{
 
                     float angle = Mathf.Atan2(crossProduct.magnitude, dotProduct);
                     Vector3 axis = crossProduct.normalized;
-                    Debug.Log("Rotation Angle: " + angle * Mathf.Rad2Deg + " degrees");
-                    Debug.Log("Rotation Axis: " + axis);
-                    
+
                     Quaternion rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, axis);
 
                     head.localRotation = rotation;
-                    
+
                     Vector3 eulerAngles = player.transform.eulerAngles;
                     eulerAngles.x = 0f;
                     eulerAngles.z = 0f;
                     player.transform.eulerAngles = eulerAngles;
-                    
+
                     Vector3 eulerAngles2 = head.localEulerAngles;
                     eulerAngles2.x = 0f;
                     eulerAngles2.z = 0f;
                     head.localEulerAngles = eulerAngles2;
-                    
+
                     Vector3 eulerAngles3 = camera.localEulerAngles;
                     eulerAngles3.x = 0f;
                     eulerAngles3.y = 0f;
@@ -227,9 +234,31 @@ public class aiNavigation : MonoBehaviour{
                     camera.localEulerAngles = eulerAngles3;
 
                     transform.LookAt(player.transform);
-                    
+
                     animator.SetBool("isCaught", true);
                 }
+            }
+        }
+    }
+
+    void playSound() {
+        if (!canSeePlayer) {
+            if (!((walkingSounds.Contains(source.clip)) && (source.isPlaying))) {
+                int randomNum = (int)Random.Range(0, walkingSounds.Length - 1);
+                source.clip = walkingSounds[randomNum]; 
+                source.Play();
+            }
+        } else if (playerManager.instance.hasLost) {
+            if (!((screamingSounds.Contains(source.clip)) && (source.isPlaying))) {
+                int randomNum = (int)Random.Range(0, screamingSounds.Length - 1);
+                source.clip = screamingSounds[randomNum]; 
+                source.Play();
+            }
+        } else {
+            if (!((chasingSounds.Contains(source.clip)) && (source.isPlaying))) {
+                int randomNum = (int)Random.Range(0, chasingSounds.Length - 1);
+                source.clip = chasingSounds[randomNum]; 
+                source.Play();
             }
         }
     }
