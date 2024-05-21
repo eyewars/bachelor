@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terminal
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1f8b0263fcdde423bb3b0e92b5297d33, type: 3}
+      propertyPath: m_TagString
+      value: terminal
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -79,6 +83,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f8b0263fcdde423bb3b0e92b5297d33, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1388696697965493649}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1f8b0263fcdde423bb3b0e92b5297d33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7692699576924095547}
     - targetCorrespondingSourceObject: {fileID: -8256134651489076907, guid: 1f8b0263fcdde423bb3b0e92b5297d33, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3325811944469335707}
@@ -136,7 +143,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6297956540187466471}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5d5cacad24442ee48968439d12eac081, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -150,3 +157,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8276615, y: 6.2727203, z: 1.4672053}
   m_Center: {x: -0.12887523, y: 3.1083384, z: 0.04492733}
+--- !u!114 &7692699576924095547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6297956540187466471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65918bece87c447b99d08e318e054d91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
