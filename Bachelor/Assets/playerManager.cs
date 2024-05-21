@@ -22,6 +22,8 @@ public class playerManager : MonoBehaviour{
 
     public bool hasLost;
 
+    public bool isTyping;
+
     void Awake() {
         if (instance != null) {
             Debug.LogError("BRO DET ER MER ENN EN PLAYERMANAGER!!!!!!!!!!!!!!!!!!");

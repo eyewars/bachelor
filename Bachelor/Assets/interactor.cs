@@ -11,9 +11,84 @@ public class interactor : MonoBehaviour{
 
     public Camera myCamera;
 
-    private bool isTyping;
+	private terminal myTerminal;
 
     void Update() {
+		if (Input.GetKeyDown(KeyCode.F)) {
+            Ray r = new Ray(myCamera.transform.position, myCamera.transform.forward);
+            if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange)) {
+                if (hitInfo.collider.gameObject.TryGetComponent(out interactable interactObj)) {
+                    interactObj.interact();
+                }
+            }
+        }
+
+		if (Input.GetKey(KeyCode.F)){
+			Ray r = new Ray(myCamera.transform.position, myCamera.transform.forward);
+			if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange)){
+				if (hitInfo.collider.gameObject.TryGetComponent(out interactable interactObj)){
+					if (hitInfo.collider.gameObject.tag == "terminal") {
+						myTerminal = hitInfo.collider.gameObject.GetComponent<terminal>();
+
+                        if ((!playerManager.instance.isTyping) && (!myTerminal.isShowingMap)){
+                            playerManager.instance.isTyping = true;
+							myTerminal.startAnimation();
+							myTerminal.showMap();
+                        }
+                    }
+				}
+			}else {
+				playerManager.instance.isTyping = false;
+				if (myTerminal != null){
+					myTerminal.stopAnimation();
+					myTerminal.cancelMap();
+				}
+        	}
+		}
+
+		if (Input.GetKeyUp(KeyCode.F)){
+            playerManager.instance.isTyping = false;
+			if (myTerminal != null){
+				myTerminal.stopAnimation();
+				myTerminal.cancelMap();
+			}
+        }
+
+		/*
+		Ray r = new Ray(myCamera.transform.position, myCamera.transform.forward);
+		if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange)){
+			if (hitInfo.collider.gameObject.TryGetComponent(out interactable interactObj)){
+				if (Input.GetKeyDown(KeyCode.F)){
+					interactObj.interact();
+
+					if (hitInfo.collider.gameObject.tag == "terminal") {
+						myTerminal = hitInfo.collider.gameObject.GetComponent<terminal>();
+                        if ((!playerManager.instance.isTyping) && (!myTerminal.isShowingMap)){
+                            playerManager.instance.isTyping = true;
+							myTerminal.startAnimation();
+							myTerminal.showMap();
+                        }
+                    }
+				}
+			}
+		}else {
+            playerManager.instance.isTyping = false;
+			if (myTerminal != null){
+				myTerminal.stopAnimation();
+				myTerminal.cancelMap();
+			}
+        }
+
+		if (Input.GetKeyUp(KeyCode.F)) {
+            playerManager.instance.isTyping = false;
+			if (myTerminal != null){
+				myTerminal.stopAnimation();
+				myTerminal.cancelMap();
+			}
+        }
+		*/
+
+		/*
         if (Input.GetKeyDown(KeyCode.F)) {
             Ray r = new Ray(myCamera.transform.position, myCamera.transform.forward);
             if (Physics.Raycast(r, out RaycastHit hitInfo, interactRange)) {
@@ -21,15 +96,28 @@ public class interactor : MonoBehaviour{
                     interactObj.interact();
 
                     if (hitInfo.collider.gameObject.tag == "terminal") {
-                        isTyping = true;
-                        Debug.Log(isTyping);
+                        if (!playerManager.instance.isTyping){
+                            playerManager.instance.isTyping = true;
+							myTerminal = hitInfo.collider.gameObject.GetComponent<terminal>();
+							myTerminal.playAudio();
+							myTerminal.showMap();
+                        }
                     }
                 }
             } else {
-                isTyping = false;
+                playerManager.instance.isTyping = false;
+				myTerminal.cancelMap();
+				if (myTerminal != null){
+					myTerminal.stopAudio();
+				}
             }
         } else if (Input.GetKeyUp(KeyCode.F)) {
-            isTyping = false;
+            playerManager.instance.isTyping = false;
+			myTerminal.cancelMap();
+			if (myTerminal != null){
+				myTerminal.stopAudio();
+			}
         }
+		*/
     }
 }
