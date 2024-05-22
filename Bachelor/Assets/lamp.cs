@@ -1,11 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
 
 public class lamp : MonoBehaviour{
     public bool isStrong;
+
+    public bool blinking;
 
     private float strongIntesity = 100f;
     private float weakIntensity = 1f;
@@ -26,9 +26,13 @@ public class lamp : MonoBehaviour{
         materialRenderer = GetComponent<Renderer>().material;
 
         changeIntensity();
+
+        if (blinking) {
+            StartCoroutine(blinkingTimer());
+        }
     }
 
-    public void toogleLamp() {
+    public void toggleLamp() {
         if (isStrong) {
             isStrong = false;
         } else {
@@ -45,6 +49,21 @@ public class lamp : MonoBehaviour{
         } else {
             myLight.intensity = weakIntensity;
             transform.GetChild(0).GetComponent<Renderer>().material = weakEmission;
+        }
+    }
+    
+    IEnumerator blinkingTimer() {
+        while (true) {
+            blink();
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+    void blink() {
+        float randomNum = Random.Range(0, 5f);
+
+        if (randomNum > 4) {
+            toggleLamp();
         }
     }
 }

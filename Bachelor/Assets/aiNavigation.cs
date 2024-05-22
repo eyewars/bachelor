@@ -120,8 +120,10 @@ public class aiNavigation : MonoBehaviour{
     IEnumerator sensingTimer() {
         // Bytt ut true etterhvert (for eksempel med så lenge spilleren har tapt eller whatever idk)
         while (true) {
-            findPlayerVisual();
-            findPlayerAudio();
+            if (!playerManager.instance.hasLost) {
+                findPlayerVisual(); 
+                findPlayerAudio();
+            }
             playSound();
             //checkForGameOver(); DENNE ER I UPDATE NÅ
             yield return new WaitForSeconds(0.2f);
@@ -145,14 +147,17 @@ public class aiNavigation : MonoBehaviour{
                         canSeePlayer = true;
                         animator.SetBool("isChasing", true);
                         foundPlayerWithSight = true;
+                        playerManager.instance.changeProfile("chasing");
                     } else {
                         canSeePlayer = false;
                         animator.SetBool("isChasing", false);
+                        playerManager.instance.changeProfile("normal");
                     }
                 }
             } else {
                 canSeePlayer = false;
                 animator.SetBool("isChasing", false);
+                playerManager.instance.changeProfile("normal");
             }
         }
     }
@@ -179,9 +184,11 @@ public class aiNavigation : MonoBehaviour{
                 canSeePlayer = true;
                 animator.SetBool("isChasing", true);
                 foundPlayerWithSight = false;
+                playerManager.instance.changeProfile("chasing");
             } else {
                 canSeePlayer = false;
                 animator.SetBool("isChasing", false);
+                playerManager.instance.changeProfile("normal");
             }
         }
     }
@@ -195,6 +202,7 @@ public class aiNavigation : MonoBehaviour{
                 float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
                 if (((distanceToTarget < 2f) && (canSeePlayer))) {
+                    playerManager.instance.changeProfile("caught");
                     playerManager.instance.hasLost = true;
                     agent.SetDestination(transform.position);
 

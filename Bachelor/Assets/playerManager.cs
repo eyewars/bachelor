@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class playerManager : MonoBehaviour{
@@ -24,6 +25,11 @@ public class playerManager : MonoBehaviour{
 
     public bool isTyping;
 
+    public Volume myVolume;
+    public VolumeProfile normalProfile;
+    public VolumeProfile chasingProfile;
+    public VolumeProfile caughtProfile;
+
     void Awake() {
         if (instance != null) {
             Debug.LogError("BRO DET ER MER ENN EN PLAYERMANAGER!!!!!!!!!!!!!!!!!!");
@@ -39,11 +45,23 @@ public class playerManager : MonoBehaviour{
         for (int i = 0; i < mapParts.Length; i++) {
             mapParts[i].SetActive(roofToggle);
         }
+        
+        changeProfile("normal");
     }
 
     public void gameOverSceneChange() {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneManager.LoadScene(2);
+    }
+
+    public void changeProfile(string profile) {
+        if (profile == "normal") {
+            myVolume.profile = normalProfile;
+        } else if (profile == "chasing") {
+            myVolume.profile = chasingProfile;
+        } else if (profile == "caught") {
+            myVolume.profile = caughtProfile;
+        }
     }
 }

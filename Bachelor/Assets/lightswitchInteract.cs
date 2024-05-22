@@ -26,7 +26,9 @@ public class lightswitchInteract : MonoBehaviour, interactable{
 
     public void interact() {
         for (int i = 0; i < lampScript.Count; i++) {
-            lampScript[i].toogleLamp();
+            if (!lampScript[i].blinking) {
+                lampScript[i].toggleLamp();
+            }
         }
 
         if (lampScript[0].isStrong) {
