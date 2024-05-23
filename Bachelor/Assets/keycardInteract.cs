@@ -20,6 +20,9 @@ public class keycardInteract : MonoBehaviour, interactable{
         source.Play();
         
         gameObject.GetComponent<MeshRenderer>().enabled = false;
+        for (int i = 0; i < 4; i++){
+            transform.GetChild(i).GetComponent<MeshRenderer>().enabled = false;
+        }
         Invoke("destroySelf", source.clip.length);
     }
     
