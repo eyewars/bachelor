@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class flashlightInteract : MonoBehaviour, interactable{
-    public TextMeshProUGUI batteryText;
+    public Image battery;
     public GameObject flashLightModel;
     
     private AudioSource source;
@@ -19,7 +19,7 @@ public class flashlightInteract : MonoBehaviour, interactable{
     
     public void interact() {
         playerManager.instance.hasFlashlight = true;
-        batteryText.enabled = true;
+        battery.enabled = true;
         flashLightModel.SetActive(true);
         
         source.Play();

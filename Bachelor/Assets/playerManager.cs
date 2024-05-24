@@ -13,6 +13,7 @@ public class playerManager : MonoBehaviour{
 
     public List<int> keyIds = new List<int>();
     public List<int> machineIds = new List<int>();
+    public List<int> machineIdsUsed = new List<int>();
 
     public bool roofToggle;
 
@@ -22,6 +23,7 @@ public class playerManager : MonoBehaviour{
     public float runningAudioMult;
 
     public bool hasLost;
+    public bool hasWon;
 
     public bool isTyping;
 
@@ -53,6 +55,12 @@ public class playerManager : MonoBehaviour{
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         SceneManager.LoadScene(2);
+    }
+
+    public void winSceneChange() {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene(4);
     }
 
     public void changeProfile(string profile) {
