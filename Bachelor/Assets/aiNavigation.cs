@@ -8,9 +8,11 @@ using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class aiNavigation : MonoBehaviour{
+    public int monsterId;
     public NavMeshAgent agent;
     private Vector3 walkPos;
     public GameObject player;
+    private AudioSource playerSource;
     private playerMovement playerScript;
 
     public GameObject patrolPointHolder;
@@ -45,6 +47,8 @@ public class aiNavigation : MonoBehaviour{
     public AudioClip[] chasingSounds;
     public AudioClip[] screamingSounds;
 
+    public bool isTroll;
+
     void Start() {
         source = GetComponent<AudioSource>();
 
@@ -55,56 +59,70 @@ public class aiNavigation : MonoBehaviour{
 
         playerScript = player.GetComponent<playerMovement>();
 
+        playerSource = player.GetComponent<AudioSource>();
+
         animator = GetComponent<Animator>();
 
         patrol();
 
         StartCoroutine(sensingTimer());
+
+        if (isTroll){
+            agent.speed = runSpeed;
+        }
     }
 
     void Update() {
         checkForGameOver();
         if (!playerManager.instance.hasLost) {
-            if (!canSeePlayer) {
-                agent.speed = walkSpeed;
+            if (!isTroll){
+                    if (!canSeePlayer) {
+                    agent.speed = walkSpeed;
 
-                if ((agent.remainingDistance < 0.1) && !isIdling) {
-                    previousPatrolIndex = currentPatrolIndex;
-                    if (!shouldLoop) {
-                        if (currentPatrolIndex == 0) {
-                            patrolForward = true;
-                        } else if (currentPatrolIndex == (patrolPoints.Count - 1)) {
-                            patrolForward = false;
-                        }
+                    if ((agent.remainingDistance < 0.1) && !isIdling) {
+                        previousPatrolIndex = currentPatrolIndex;
+                        if (!shouldLoop) {
+                            if (currentPatrolIndex == 0) {
+                                patrolForward = true;
+                            } else if (currentPatrolIndex == (patrolPoints.Count - 1)) {
+                                patrolForward = false;
+                            }
 
-                        if (patrolForward) {
-                            currentPatrolIndex++;
+                            if (patrolForward) {
+                                currentPatrolIndex++;
+                            } else {
+                                currentPatrolIndex--;
+                            }
                         } else {
-                            currentPatrolIndex--;
-                        }
-                    } else {
-                        currentPatrolIndex++;
+                            currentPatrolIndex++;
 
-                        if (currentPatrolIndex == patrolPoints.Count) {
-                            currentPatrolIndex = 0;
+                            if (currentPatrolIndex == patrolPoints.Count) {
+                                currentPatrolIndex = 0;
+                            }
+                        }
+
+                        if (patrolPoints[previousPatrolIndex].gameObject.tag == "shouldIdle") {
+                            isIdling = true;
+                            animator.SetBool("isWalking", false);
+                            Invoke(nameof(patrol), 2.5f);
+                        } else {
+                            patrol();
                         }
                     }
+                } else {
+                    agent.speed = runSpeed;
 
-                    if (patrolPoints[previousPatrolIndex].gameObject.tag == "shouldIdle") {
-                        isIdling = true;
-                        animator.SetBool("isWalking", false);
-                        Invoke(nameof(patrol), 2.5f);
-                    } else {
+                    agent.SetDestination(player.transform.position);
+
+                    if (!canSeePlayer) {
                         patrol();
                     }
                 }
-            } else {
-                agent.speed = runSpeed;
-
-                agent.SetDestination(player.transform.position);
-
-                if (!canSeePlayer) {
-                    patrol();
+            } else{
+                if (!canSeePlayer){
+                    agent.SetDestination(patrolPoints[0].position);
+                } else {
+                    agent.SetDestination(player.transform.position);
                 }
             }
         }
@@ -148,18 +166,33 @@ public class aiNavigation : MonoBehaviour{
                         animator.SetBool("isChasing", true);
                         foundPlayerWithSight = true;
                         playerManager.instance.changeProfile("chasing");
+                        playerManager.instance.monsterSeenBy = monsterId;
+                        CancelInvoke("outOfVision");
+                        CancelInvoke("outOfAudio");
+
+                        if (!playerSource.isPlaying){
+                            playerSource.Play();
+                        }
                     } else {
-                        canSeePlayer = false;
-                        animator.SetBool("isChasing", false);
-                        playerManager.instance.changeProfile("normal");
+                        Invoke("outOfVision", 2.5f);
                     }
                 }
-            } else {
+            } else if (playerManager.instance.monsterSeenBy == monsterId){
                 canSeePlayer = false;
                 animator.SetBool("isChasing", false);
                 playerManager.instance.changeProfile("normal");
+                playerManager.instance.monsterSeenBy = 0;
+                playerSource.Stop();
             }
         }
+    }
+
+    void outOfVision(){
+        canSeePlayer = false;
+        animator.SetBool("isChasing", false);
+        playerManager.instance.changeProfile("normal");
+        playerManager.instance.monsterSeenBy = 0;
+        playerSource.Stop();
     }
 
     void findPlayerAudio() {
@@ -185,12 +218,24 @@ public class aiNavigation : MonoBehaviour{
                 animator.SetBool("isChasing", true);
                 foundPlayerWithSight = false;
                 playerManager.instance.changeProfile("chasing");
-            } else {
-                canSeePlayer = false;
-                animator.SetBool("isChasing", false);
-                playerManager.instance.changeProfile("normal");
+                playerManager.instance.monsterSeenBy = monsterId;
+                CancelInvoke("outOfAudio");
+                CancelInvoke("outOfVision");
+                if (!playerSource.isPlaying){
+                    playerSource.Play();
+                }
+            } else if (playerManager.instance.monsterSeenBy == monsterId){
+                Invoke("outOfAudio", 2.5f);
             }
         }
+    }
+
+    void outOfAudio(){
+        canSeePlayer = false;
+        animator.SetBool("isChasing", false);
+        playerManager.instance.changeProfile("normal");
+        playerManager.instance.monsterSeenBy = 0;
+        playerSource.Stop();
     }
 
     void checkForGameOver() {
@@ -251,11 +296,13 @@ public class aiNavigation : MonoBehaviour{
 
     void playSound() {
         if (!canSeePlayer) {
-            if (!((walkingSounds.Contains(source.clip)) && (source.isPlaying))) {
-                int randomNum = (int)Random.Range(0, walkingSounds.Length - 1);
-                source.clip = walkingSounds[randomNum]; 
-                source.Play();
-            }
+            if (!isTroll){
+                if (!((walkingSounds.Contains(source.clip)) && (source.isPlaying))) {
+                    int randomNum = (int)Random.Range(0, walkingSounds.Length - 1);
+                    source.clip = walkingSounds[randomNum]; 
+                    source.Play();
+                } 
+            }  
         } else if (playerManager.instance.hasLost) {
             if (!((screamingSounds.Contains(source.clip)) && (source.isPlaying))) {
                 int randomNum = (int)Random.Range(0, screamingSounds.Length - 1);

@@ -10,6 +10,8 @@ public class lightswitchInteract : MonoBehaviour, interactable{
     private AudioSource source;
     public  AudioClip[] interactSounds;
 
+    private Transform mySwitch;
+
     private void Start() {
         source = GetComponent<AudioSource>();
         
@@ -22,6 +24,14 @@ public class lightswitchInteract : MonoBehaviour, interactable{
                 lampScript.Add(lamps[i].GetComponent<lamp>());
             }
         }
+
+        mySwitch = transform.GetChild(2);
+
+        if (lampScript[0].isStrong) {
+            mySwitch.localEulerAngles = new Vector3(5f, 0, 0);
+        } else {
+            mySwitch.localEulerAngles = new Vector3(-5f, 0, 0);
+        }
     }
 
     public void interact() {
@@ -33,8 +43,10 @@ public class lightswitchInteract : MonoBehaviour, interactable{
 
         if (lampScript[0].isStrong) {
             source.clip = interactSounds[1];
+            mySwitch.localEulerAngles = new Vector3(5f, 0, 0);
         } else {
             source.clip = interactSounds[0];
+            mySwitch.localEulerAngles = new Vector3(-5f, 0, 0);
         }
         
         source.Play();

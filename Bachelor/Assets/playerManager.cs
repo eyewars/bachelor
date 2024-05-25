@@ -32,6 +32,8 @@ public class playerManager : MonoBehaviour{
     public VolumeProfile chasingProfile;
     public VolumeProfile caughtProfile;
 
+    public int monsterSeenBy;
+
     void Awake() {
         if (instance != null) {
             Debug.LogError("BRO DET ER MER ENN EN PLAYERMANAGER!!!!!!!!!!!!!!!!!!");
