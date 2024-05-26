@@ -20,10 +20,37 @@ public class door : MonoBehaviour, interactable{
     public LayerMask playerMask;
     public LayerMask wallMask;
 
+    public AudioSource source;
+    
+    public AudioClip doorLock;
+    public AudioClip doorOpen;
+    public AudioClip doorClose;
+
+    private bool hasFinishedAudio;
+
     public void interact() {
         if (!isUnlocked) {
             if (playerManager.instance.keyIds.Contains(keyId)) {
                 unlockDoor();
+                
+                if (keyId == 1){
+                    playerManager.instance.currentAudio = "hallDoorOpen";
+                    playerManager.instance.currentClip = 0;
+                    playerManager.instance.shouldStopClip = true;
+                } else if(keyId == 2){
+                    playerManager.instance.currentAudio = "roomDoorOpen";
+                    playerManager.instance.currentClip = 0;
+                    playerManager.instance.shouldStopClip = true;
+                } else if(keyId == 3){
+                    playerManager.instance.currentAudio = "shipDoorOpen";
+                    playerManager.instance.currentClip = 0;
+                    playerManager.instance.shouldStopClip = true;
+                }
+            } else{
+                if (!source.isPlaying){
+                    source.clip = doorLock;
+                    source.Play();
+                }
             }
         }
     }

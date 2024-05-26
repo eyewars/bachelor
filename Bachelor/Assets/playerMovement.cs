@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,12 +30,22 @@ public class playerMovement : MonoBehaviour{
     public Animator cameraBob;
     private Vector3 startPos;
 
+    public float bobSpeedCrouch;
+    public float bobSpeedWalk;
+    public float bobSpeedRun;
+
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
 
     Rigidbody rb;
+
+    public AudioSource source;
+
+    public AudioClip[] crouchSounds;
+    public AudioClip[] walkSounds;
+    public AudioClip[] runSounds;
 
     void Start() {
         startPos = Vector3.zero;
@@ -125,7 +134,31 @@ public class playerMovement : MonoBehaviour{
                 movementType = 1;
             }
        
-        
+            if (movementType == 0){
+                cameraBob.SetFloat("bobSpeed", bobSpeedCrouch);
+                if (!source.isPlaying){
+                    int randomNum = (int)Random.Range(0, crouchSounds.Length - 1);
+                    source.clip = crouchSounds[randomNum];
+
+                    source.Play();
+                }
+            } else if (movementType == 1){
+                cameraBob.SetFloat("bobSpeed", bobSpeedWalk);
+                if (!source.isPlaying){
+                    int randomNum = (int)Random.Range(0, walkSounds.Length - 1);
+                    source.clip = walkSounds[randomNum];
+
+                    source.Play();
+                }
+            } else if (movementType == 2){
+                cameraBob.SetFloat("bobSpeed", bobSpeedRun);
+                if (!source.isPlaying){
+                    int randomNum = (int)Random.Range(0, runSounds.Length - 1);
+                    source.clip = runSounds[randomNum];
+
+                    source.Play();
+                }
+            }
     }
 
     private void speedControl() {

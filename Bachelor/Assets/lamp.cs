@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 
 public class lamp : MonoBehaviour{
@@ -12,8 +13,7 @@ public class lamp : MonoBehaviour{
 
     public Material strongEmission;
     public Material weakEmission;
-
-    private Material materialRenderer;
+    public Material redEmission;
 
     // MÅ BYTTE TYPE TIL NOE HDRP LYS GREIER 
     // https://forum.unity.com/threads/light-intensity-doesnt-work-with-hdrp.706382/
@@ -22,8 +22,6 @@ public class lamp : MonoBehaviour{
     // Mathf.PingPong() kan være nice for noe, feks alarm greier på starten
     void Start() {
         myLight = transform.GetChild(1).GetComponent<HDAdditionalLightData>();
-
-        materialRenderer = GetComponent<Renderer>().material;
 
         changeIntensity();
 

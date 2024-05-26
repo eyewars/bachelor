@@ -316,8 +316,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStrong: 0
+  blinking: 0
   strongEmission: {fileID: 2100000, guid: 6adb30bb1f3804a08a02b033ba44d8de, type: 2}
   weakEmission: {fileID: 2100000, guid: 6ec35df834b484249984eb7640369edc, type: 2}
+  redEmission: {fileID: 2100000, guid: 72f18618e26924540aca0da6b0e6ca4b, type: 2}
 --- !u!1 &5969951806480369451
 GameObject:
   m_ObjectHideFlags: 0

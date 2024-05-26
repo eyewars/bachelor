@@ -31,8 +31,13 @@ public class playerManager : MonoBehaviour{
     public VolumeProfile normalProfile;
     public VolumeProfile chasingProfile;
     public VolumeProfile caughtProfile;
+    public VolumeProfile alarmProfile;
 
     public int monsterSeenBy;
+
+    public string currentAudio;
+    public int currentClip;
+    public bool shouldStopClip;
 
     void Awake() {
         if (instance != null) {
@@ -50,7 +55,7 @@ public class playerManager : MonoBehaviour{
             mapParts[i].SetActive(roofToggle);
         }
         
-        changeProfile("normal");
+        changeProfile("alarm");
     }
 
     public void gameOverSceneChange() {
@@ -66,7 +71,9 @@ public class playerManager : MonoBehaviour{
     }
 
     public void changeProfile(string profile) {
-        if (profile == "normal") {
+        if (profile =="alarm"){
+            myVolume.profile = alarmProfile;
+        } else if (profile == "normal") {
             myVolume.profile = normalProfile;
         } else if (profile == "chasing") {
             myVolume.profile = chasingProfile;
