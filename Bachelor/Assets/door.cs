@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
@@ -8,8 +7,9 @@ public class door : MonoBehaviour, interactable{
     private Transform[] doors = new Transform[2];
     private Transform[] wheels = new Transform[2];
 
-    public bool isOpen = false;
-    private bool isUnlocked = false;
+    public bool isOpen;
+    private bool wasOpen;
+    private bool isUnlocked;
     public int keyId;
 
     public bool isBig;
@@ -23,10 +23,8 @@ public class door : MonoBehaviour, interactable{
     public AudioSource source;
     
     public AudioClip doorLock;
-    public AudioClip doorOpen;
-    public AudioClip doorClose;
-
-    private bool hasFinishedAudio;
+    public AudioClip[] doorOpen;
+    public AudioClip[] doorClose;
 
     public void interact() {
         if (!isUnlocked) {
@@ -79,6 +77,9 @@ public class door : MonoBehaviour, interactable{
         } else {
             isUnlocked = false;
         }
+
+        isOpen = false;
+        wasOpen = false;
     }
 
     void Update() {
@@ -125,29 +126,44 @@ public class door : MonoBehaviour, interactable{
                             }
                         }
                     }
-                } else {
+            } else {
                 if (doors[1].localPosition.x > -0.2376854f) {
-                        doors[1].localPosition = new Vector3(doors[1].localPosition.x - (0.2f * doorSpeed * Time.deltaTime), -0.08292082f, -0.7379031f);
-                    } else if (doors[1].localPosition.x <= -0.2376854f) {
-                        doors[1].localPosition = new Vector3(-0.2376854f, -0.08292082f, -0.7379031f);
+                    doors[1].localPosition = new Vector3(doors[1].localPosition.x - (0.2f * doorSpeed * Time.deltaTime), -0.08292082f, -0.7379031f);
+                } else if (doors[1].localPosition.x <= -0.2376854f) {
+                    doors[1].localPosition = new Vector3(-0.2376854f, -0.08292082f, -0.7379031f);
 
-                        if (wheels[0].localEulerAngles.y > 10f) {
-                            Vector3 currentAngles = wheels[0].localEulerAngles;
-                            currentAngles.y -= 40f * doorSpeed * Time.deltaTime;
-                            wheels[0].localEulerAngles = currentAngles;
-                            wheels[1].localEulerAngles = currentAngles;
-                        } else if (wheels[0].localEulerAngles.y <= 10f) {
-                            wheels[0].localEulerAngles = new Vector3(0f, 9f, 0f);
-                            wheels[1].localEulerAngles = new Vector3(0f, 9f, 0f);
+                    if (wheels[0].localEulerAngles.y > 10f) {
+                        Vector3 currentAngles = wheels[0].localEulerAngles;
+                        currentAngles.y -= 40f * doorSpeed * Time.deltaTime;
+                        wheels[0].localEulerAngles = currentAngles;
+                        wheels[1].localEulerAngles = currentAngles;
+                    } else if (wheels[0].localEulerAngles.y <= 10f) {
+                        wheels[0].localEulerAngles = new Vector3(0f, 9f, 0f);
+                        wheels[1].localEulerAngles = new Vector3(0f, 9f, 0f);
 
-                            if (doors[0].localPosition.x > -0.2376854f) {
-                                doors[0].localPosition = new Vector3(doors[0].localPosition.x - (0.2f * doorSpeed * Time.deltaTime), 0.1042567f, -0.7379031f);
-                            } else if (doors[0].localPosition.x < -0.2376854f) {
-                                doors[0].localPosition = new Vector3(-0.2376854f, 0.1042567f, -0.7379031f);
-                            }
+                        if (doors[0].localPosition.x > -0.2376854f) {
+                            doors[0].localPosition = new Vector3(doors[0].localPosition.x - (0.2f * doorSpeed * Time.deltaTime), 0.1042567f, -0.7379031f);
+                        } else if (doors[0].localPosition.x < -0.2376854f) {
+                            doors[0].localPosition = new Vector3(-0.2376854f, 0.1042567f, -0.7379031f);
                         }
                     }
                 }
+            }  
+        }
+
+        if (isOpen != wasOpen){
+            if (isOpen){
+                source.Stop();
+                int randomNum = (int)Random.Range(0, doorOpen.Length - 1);
+                source.clip = doorOpen[randomNum];
+                source.Play();
+            } else { 
+                source.Stop();
+                int randomNum = (int)Random.Range(0, doorClose.Length - 1);
+                source.clip = doorClose[randomNum];
+                source.Play();
+            }
+            wasOpen = isOpen;
         }
     }
 

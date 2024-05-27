@@ -26,6 +26,9 @@ public class introVoice : MonoBehaviour{
     public AudioClip[] shipDoorOpen;
     public string[] shipDoorOpenSub;
 
+    public AudioClip[] winGame;
+    public string[] winGameSub;
+
     private float colorChangeTimer;
     private float colorChangeTimerMax;
     private int colorChangeTimerAmount;
@@ -131,6 +134,18 @@ public class introVoice : MonoBehaviour{
                 source.Play();
                 playerManager.instance.currentClip++;
             } else if((!source.isPlaying) && (playerManager.instance.currentClip == shipDoorOpen.Length)){
+                subtitles.enabled = false;
+            }
+        }
+
+        if (playerManager.instance.currentAudio == "winGame"){
+            if ((!source.isPlaying) && (playerManager.instance.currentClip <= (winGame.Length - 1))){
+                subtitles.enabled = true;
+                source.clip = winGame[playerManager.instance.currentClip];
+                subtitles.text = winGameSub[playerManager.instance.currentClip];
+                source.Play();
+                playerManager.instance.currentClip++;
+            } else if((!source.isPlaying) && (playerManager.instance.currentClip == winGame.Length)){
                 subtitles.enabled = false;
             }
         }

@@ -240,8 +240,16 @@ MonoBehaviour:
     m_Bits: 512
   source: {fileID: -4487057233261366414}
   doorLock: {fileID: 8300000, guid: c38e4ebdac1da7048868f9215c5f7c9c, type: 3}
-  doorOpen: {fileID: 8300000, guid: b239a1a56274e984bad3b7ee5df59b65, type: 3}
-  doorClose: {fileID: 8300000, guid: fb5df5bb02050dd429f84e3af21881c3, type: 3}
+  doorOpen:
+  - {fileID: 8300000, guid: affb15c1bb20dca469ca4beb4760e678, type: 3}
+  - {fileID: 8300000, guid: e271f7ffecbd4b94d94653931302bd35, type: 3}
+  - {fileID: 8300000, guid: f9d831a8dd3bded43845eed3345dfabb, type: 3}
+  - {fileID: 8300000, guid: 8fb53d6182841f648961e78bff375d78, type: 3}
+  doorClose:
+  - {fileID: 8300000, guid: d5a33455750f3444888e7564058c9305, type: 3}
+  - {fileID: 8300000, guid: 3a4a80c334b38524d98e0bbd1f3e2164, type: 3}
+  - {fileID: 8300000, guid: 43f1c850723dade4abad2066f208ac5c, type: 3}
+  - {fileID: 8300000, guid: 7287af57a532d1448ba4c7c5a46e8728, type: 3}
 --- !u!65 &8209402649170334132
 BoxCollider:
   m_ObjectHideFlags: 0
