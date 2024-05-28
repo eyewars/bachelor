@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Base
-    second: {fileID: 2100000, guid: 3f4f97efd3d8c1447a41f7c74a917f68, type: 2}
+    second: {fileID: 2100000, guid: 13c6b4fd26cf7a7409001e9822564166, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Canister
-    second: {fileID: 2100000, guid: 79940424dc85a7540817aaf64cc19ab4, type: 2}
+    second: {fileID: 2100000, guid: 5effc4c1520bf04469bc6d7676b2ada4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Emission
-    second: {fileID: 2100000, guid: 63310abe1df2ebd439396a9dc29808b8, type: 2}
+    second: {fileID: 2100000, guid: 908a890601367ed4d94e68b32af2e6d1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Iron
-    second: {fileID: 2100000, guid: 9de0d2b3452ae73488ef92442ec8b04f, type: 2}
+    second: {fileID: 2100000, guid: 66d637eac775d114a83279959c368c0a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

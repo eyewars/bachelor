@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9089729620463203220
+--- !u!114 &-4568150256259386389
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,7 +54,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: 68433fb366bf4a9469198a23f8267444, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6f40d7af63a4c934db5e1d88faecc540, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
@@ -74,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveColorMap:
-        m_Texture: {fileID: 2800000, guid: 15793c0917e22da459b7884e4ef66fed, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1b785d072f2131f4a83882fa509bb248, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
@@ -90,15 +90,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 68433fb366bf4a9469198a23f8267444, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6f40d7af63a4c934db5e1d88faecc540, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
-        m_Texture: {fileID: 2800000, guid: 66d5e2b356bc71d40b658b04231d3045, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4fe5bd703c018bf45b0342845e16a008, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 8479dfc1becf559448f35bfd82ebebf4, type: 3}
+        m_Texture: {fileID: 2800000, guid: bfcc89fa94eec55429257c0d836f69a0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:

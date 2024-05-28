@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 146b73df97888f349bae44cb4e9d691b
+guid: f3fa0c730a69e5f4195fb7a6281f0e1d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,27 +8,27 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material
-    second: {fileID: 2100000, guid: 0cbfa2b326fa5a64b9c629bbce2ac526, type: 2}
+    second: {fileID: 2100000, guid: 29c7aeaa2f0bf1d48afdfcc5147d15cc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: base
-    second: {fileID: 2100000, guid: b3b207d9dc379104e81aec971e82f362, type: 2}
+    second: {fileID: 2100000, guid: 1f411edef5635cb48aaf7a2e62f2d062, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: bottom
-    second: {fileID: 2100000, guid: 7a9219b375ed10740affa6c4c721be9d, type: 2}
+    second: {fileID: 2100000, guid: c739070547350c1469c3c51c37289586, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lokk
-    second: {fileID: 2100000, guid: c929b3f23a1ef5d4b87c97ac977ecf61, type: 2}
+    second: {fileID: 2100000, guid: 548ee4a775bb20a43a633e117bcbbe19, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: top
-    second: {fileID: 2100000, guid: e0fd89624e70c1e4d96132c02f3c8538, type: 2}
+    second: {fileID: 2100000, guid: 08256085c8adf5341aa86cb410c0145c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
