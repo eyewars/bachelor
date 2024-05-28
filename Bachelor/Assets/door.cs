@@ -58,7 +58,6 @@ public class door : MonoBehaviour, interactable{
     }
 
     void Start() {
-        // PASS PÅ NÅR DERE BUILDER AT DISSE INDEXENE BLIR RIKTIGE!!!!!
         if (isBig) {
             doors[0] = transform.GetChild(0).GetChild(0);
             doors[1] = transform.GetChild(0).GetChild(1);
@@ -103,8 +102,6 @@ public class door : MonoBehaviour, interactable{
             }
         } else {
             if (isOpen) {
-                // LOKKA: -0.2376854
-                // ÅPEN: 1.471
                 if (doors[1].localPosition.x < 1.471f) {
                     doors[1].localPosition = new Vector3(doors[1].localPosition.x + (0.2f * doorSpeed * Time.deltaTime), -0.08292082f, -0.7379031f);
                     } else if (doors[1].localPosition.x >= 1.471f) {
@@ -186,7 +183,6 @@ public class door : MonoBehaviour, interactable{
     }
 
     IEnumerator doorTimer() {
-        // Bytt ut true etterhvert (for eksempel med så lenge spilleren har tapt eller whatever idk)
         while (true) {
             if (isUnlocked) {
                 checkPlayerProximity();

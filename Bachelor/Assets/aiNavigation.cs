@@ -136,14 +136,12 @@ public class aiNavigation : MonoBehaviour{
     }
 
     IEnumerator sensingTimer() {
-        // Bytt ut true etterhvert (for eksempel med så lenge spilleren har tapt eller whatever idk)
         while (true) {
             if (!playerManager.instance.hasLost) {
                 findPlayerVisual(); 
                 findPlayerAudio();
             }
             playSound();
-            //checkForGameOver(); DENNE ER I UPDATE NÅ
             yield return new WaitForSeconds(0.2f);
         }
     }

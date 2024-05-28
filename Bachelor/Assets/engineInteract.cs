@@ -23,8 +23,7 @@ public class engineInteract : MonoBehaviour, interactable{
             playerManager.instance.shouldStopClip = true;
             pointLight.color = new Color(0.035f, 0.789f, 0.347f);
             
-            // DEN GÅR NÅ TIL GAME OVER MEN DEN SKAL TIL EN WINNE SCENE SOM IKKE ER LAGD!!
-            playerManager.instance.Invoke("gameOverSceneChange", 26f);
+            playerManager.instance.Invoke("winSceneChange", 26f);
         }
     }
 }

@@ -41,7 +41,7 @@ public class playerManager : MonoBehaviour{
 
     void Awake() {
         if (instance != null) {
-            Debug.LogError("BRO DET ER MER ENN EN PLAYERMANAGER!!!!!!!!!!!!!!!!!!");
+            Debug.LogError("There is already an instance of playerManager!");
             return;
         }
 

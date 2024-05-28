@@ -29,12 +29,8 @@ public class playerCam : MonoBehaviour{
 
             hand.localRotation = Quaternion.Euler(-xPos, yPos, 0f);
 
-            //body.rotation = Quaternion.Lerp(body.rotation, Quaternion.Euler(0f, yPos, 0f), cameraAcceleration * Time.deltaTime);
             transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0f, yPos, 0f), cameraAcceleration * Time.deltaTime);
             camera.localRotation = Quaternion.Lerp(camera.localRotation, Quaternion.Euler(-xPos, 0f, 0f), cameraAcceleration * Time.deltaTime);
-
-            //body.rotation = Quaternion.Euler(0f, yPos, 0f);
-            //transform.localRotation = Quaternion.Euler(-xPos, 0f, 0f);
         }
     }
 }

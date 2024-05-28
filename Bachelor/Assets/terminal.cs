@@ -47,8 +47,6 @@ public class terminal : MonoBehaviour, interactable{
 
             player.clip = mapClip;
             player.Play();
-
-            Debug.Log("Nå kan du se mappet!");
         }
     }
 

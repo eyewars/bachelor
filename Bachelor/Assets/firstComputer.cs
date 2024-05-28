@@ -69,7 +69,6 @@ public class firstComputer : MonoBehaviour{
 
         if (playerManager.instance.currentAudio == "start"){
             if (!hasPlayedStartWaveform){
-                Debug.Log("Nå er vi på den første plassen");
                 middlePlayer.Stop();
                 middlePlayer.isLooping = false;
                 middlePlayer.clip = waveforms[0];
@@ -78,7 +77,6 @@ public class firstComputer : MonoBehaviour{
                 hasPlayedStartWaveform = true;
                 hasChangedToMatrixMiddle = false;
             } else if (!hasChangedToMatrixMiddle && !middlePlayer.isPlaying && hasStartedStartWaveform){
-                Debug.Log("Nå er han ferdig med å yappe");
                 middlePlayer.Stop();
                 middlePlayer.isLooping = true;
                 middlePlayer.clip = matrix3;

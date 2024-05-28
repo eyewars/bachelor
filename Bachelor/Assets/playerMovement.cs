@@ -65,7 +65,6 @@ public class playerMovement : MonoBehaviour{
 
     void Update() {
         if (!playerManager.instance.hasLost) {
-           // +0.2f er for å ha litt å gå på (tror vi lol), hvis noe fucker seg senere kanskje den burde endres litt på!!
             grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
             myInput();
             speedControl();
@@ -75,8 +74,6 @@ public class playerMovement : MonoBehaviour{
             } else {
                 rb.drag = 0;
             }
-           
-            //movePlayer(); 
         }
     }
 
@@ -94,7 +91,6 @@ public class playerMovement : MonoBehaviour{
         if (Input.GetKeyDown(KeyCode.LeftControl)) {
             Vector3 tempPos = new Vector3(head.localPosition.x, head.localPosition.y, head.localPosition.z);
             tempPos.y -= 0.3f;
-            //head.localPosition = Vector3.Lerp(head.localPosition, tempPos, 5 * Time.deltaTime);
             head.localPosition = tempPos;
         }
 
@@ -113,7 +109,7 @@ public class playerMovement : MonoBehaviour{
         }
 
         if (Input.GetKey(jumpKey) && readyToJump && grounded) {
-            jump();
+            //jump();
         }
     }
 
@@ -121,7 +117,7 @@ public class playerMovement : MonoBehaviour{
 
             moveDirection = camera.forward * verticalInput + camera.right * horizontalInput;
             moveDirection = new Vector3(moveDirection.x, 0f, moveDirection.z);
-            // HUSK Time.deltaTime hvis du bruker update()!!!!!!!
+
             if (grounded) {
                 rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
             } else {
@@ -207,7 +203,6 @@ public class playerMovement : MonoBehaviour{
 
     private void resetCameraPos() {
         camera.localPosition = Vector3.Lerp(camera.localPosition, startPos, 5 * Time.deltaTime);
-        //camera.localPosition = startPos;
     }
 
     private void resetHeadPos() {

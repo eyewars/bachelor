@@ -15,11 +15,8 @@ public class lamp : MonoBehaviour{
     public Material weakEmission;
     public Material redEmission;
 
-    // MÅ BYTTE TYPE TIL NOE HDRP LYS GREIER 
-    // https://forum.unity.com/threads/light-intensity-doesnt-work-with-hdrp.706382/
     private HDAdditionalLightData myLight;
 
-    // Mathf.PingPong() kan være nice for noe, feks alarm greier på starten
     void Start() {
         myLight = transform.GetChild(1).GetComponent<HDAdditionalLightData>();
 
