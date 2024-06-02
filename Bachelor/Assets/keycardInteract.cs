@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class keycardInteract : MonoBehaviour, interactable{
+public class keycardInteract : MonoBehaviour, IInteractableStart{
     public int keyId;
 
     private AudioSource source;
     public  AudioClip[] interactSounds;
+
+    public string HoverText => "Pick up key-card";
 
     private void Start() {
         source = GetComponent<AudioSource>();
@@ -14,7 +16,7 @@ public class keycardInteract : MonoBehaviour, interactable{
         int randomNum = (int)Random.Range(0, interactSounds.Length - 1);
         source.clip = interactSounds[randomNum];
     }
-    public void interact() {
+    public void InteractStart() {
         playerManager.instance.keyIds.Add(keyId);
         
         source.Play();

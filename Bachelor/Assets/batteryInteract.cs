@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class batteryInteract : MonoBehaviour, interactable{
+public class batteryInteract : MonoBehaviour, IInteractableStart{
     public float batteryRefill;
 
     private AudioSource source;
     public  AudioClip[] interactSounds;
+    public string HoverText => "Pick up batteries";
 
     private void Start() {
         source = GetComponent<AudioSource>();
@@ -15,7 +16,7 @@ public class batteryInteract : MonoBehaviour, interactable{
         source.clip = interactSounds[randomNum];
     }
 
-    public void interact() {
+    public void InteractStart() {
         playerManager.instance.battery += batteryRefill;
 
         if (playerManager.instance.battery > playerManager.instance.maxBattery) {

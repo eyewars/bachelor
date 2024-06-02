@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 
-public class door : MonoBehaviour, interactable{
+public class door : MonoBehaviour, IInteractableStart{
     private Transform[] doors = new Transform[2];
     private Transform[] wheels = new Transform[2];
 
@@ -26,7 +26,30 @@ public class door : MonoBehaviour, interactable{
     public AudioClip[] doorOpen;
     public AudioClip[] doorClose;
 
-    public void interact() {
+    public string HoverText
+    {
+        get
+        {
+            if (isUnlocked)
+            {
+                if (!isOpen)
+                {
+                    return "Open door";
+                }
+
+                return "";
+            }
+
+            if (playerManager.instance.keyIds.Contains(keyId))
+            {
+                return "Open door";
+            }
+
+            return "Locked";
+        }
+    }
+
+    public void InteractStart() {
         if (!isUnlocked) {
             if (playerManager.instance.keyIds.Contains(keyId)) {
                 unlockDoor();

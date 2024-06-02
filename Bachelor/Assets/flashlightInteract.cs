@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class flashlightInteract : MonoBehaviour, interactable{
+public class flashlightInteract : MonoBehaviour, IInteractableStart{
     public Image battery;
     public GameObject flashLightModel;
     
     private AudioSource source;
     public  AudioClip[] interactSounds;
+
+    public string HoverText => "Pick up flashlight";
 
     private void Start() {
         source = GetComponent<AudioSource>();
@@ -17,7 +19,7 @@ public class flashlightInteract : MonoBehaviour, interactable{
         source.clip = interactSounds[randomNum];
     }
     
-    public void interact() {
+    public void InteractStart() {
         playerManager.instance.hasFlashlight = true;
         battery.enabled = true;
         flashLightModel.SetActive(true);
