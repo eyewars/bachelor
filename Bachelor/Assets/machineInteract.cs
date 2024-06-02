@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class machineInteract : MonoBehaviour, interactable{
+public class machineInteract : MonoBehaviour, IInteractableStart{
     public int machineId;
     
     private AudioSource source;
     public AudioClip[] interactSounds;
+
+    public string HoverText => "Interact with machine";
 
     void Start() {
         source = GetComponent<AudioSource>();
@@ -15,7 +17,7 @@ public class machineInteract : MonoBehaviour, interactable{
         source.clip = interactSounds[randomNum];
     }
     
-    public void interact() {
+    public void InteractStart() {
         playerManager.instance.machineIds.Add(machineId);
         
         source.Play();

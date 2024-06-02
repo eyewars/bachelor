@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lightswitchInteract : MonoBehaviour, interactable{
+public class lightswitchInteract : MonoBehaviour, IInteractableStart{
     public GameObject lampGroup;
     private List<Transform> lamps = new List<Transform>();
     private List<lamp> lampScript = new List<lamp>();
@@ -11,6 +11,8 @@ public class lightswitchInteract : MonoBehaviour, interactable{
     public  AudioClip[] interactSounds;
 
     private Transform mySwitch;
+
+    public string HoverText => "Toggle lights";
 
     private void Start() {
         source = GetComponent<AudioSource>();
@@ -34,7 +36,7 @@ public class lightswitchInteract : MonoBehaviour, interactable{
         }
     }
 
-    public void interact() {
+    public void InteractStart() {
         for (int i = 0; i < lampScript.Count; i++) {
             if (!lampScript[i].blinking) {
                 lampScript[i].toggleLamp();

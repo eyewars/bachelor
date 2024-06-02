@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class terminal : MonoBehaviour, interactable{
+public class terminal : MonoBehaviour, IInteractableHold, IInteractableEnd{
     private AudioSource source;
     public AudioClip interactSound;
     public AudioClip interactFinishSound;
@@ -15,6 +15,15 @@ public class terminal : MonoBehaviour, interactable{
 
     public bool isShowingMap;
 
+    public string HoverText => isShowingMap ? "" : playerManager.instance.isTyping ? "Turning on..." : "Turn on terminal (hold)";
+    
+    public void InteractEnd()
+    {
+        playerManager.instance.isTyping = false;
+        stopAnimation();
+        cancelMap();
+    }
+
     void Start() {
         source = GetComponent<AudioSource>();
 
@@ -25,10 +34,6 @@ public class terminal : MonoBehaviour, interactable{
     
     void Update() {
         
-    }
-
-    public void interact() {
-        //Debug.Log("NÅ TRYTTJA ME");
     }
 
     public void showMap(){
@@ -67,6 +72,16 @@ public class terminal : MonoBehaviour, interactable{
 
             player.clip = startClip;
             player.Play();
+        }
+    }
+    
+    public void InteractHold()
+    {
+        if ((!playerManager.instance.isTyping) && (!isShowingMap))
+        {
+            playerManager.instance.isTyping = true;
+            startAnimation();
+            showMap();
         }
     }
 }
